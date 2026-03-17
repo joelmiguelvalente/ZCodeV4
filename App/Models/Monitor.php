@@ -365,7 +365,7 @@ class Monitor
     {
         # ARMAMOS LAS ORACIONES
         $this->makeMonitor();
-        $dato = [];
+        $dato = $data = [];
         # PARA CADA VALOR CREAR UNA CONSULTA
         foreach ($array as $key => $val) {
             // CREAR CONSULTA

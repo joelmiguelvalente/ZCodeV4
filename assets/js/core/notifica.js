@@ -139,7 +139,8 @@ export const notifica = {
 	show() {
 		if (typeof notifica.cache.last != 'undefined') {
 			$('a[name=Monitor]').removeClass('spinner iconify');
-			$('#mon_list').show().children('ul').html(notifica.cache.last);
+			$('#mon_list').attr('data-dropdown', 'true');
+			$('#mon_list').children('ul').html(notifica.cache.last);
 		}
 	},
 	filter() {
@@ -151,7 +152,7 @@ export const notifica = {
 		$.post(basePath + '/notificaciones-filtro.php', { fid });
 	},
 	close: () => {
-		$('#mon_list').hide();
+		$('#mon_list').attr('data-dropdown', 'false');
 		$('a[name=Monitor]').parent('li').removeClass('monitor-notificaciones');   
 	}
 }

@@ -171,10 +171,11 @@ export const mensaje = {
 	show() {
 		if (typeof mensaje.cache.last != 'undefined') {
 			$('a[name=Mensajes]').removeClass('spinner iconify');
-			$('#mp_list').show().children('ul').html(mensaje.cache.last);
+			$('#mp_list').attr('data-dropdown', 'true');
+			$('#mp_list').children('ul').html(mensaje.cache.last);
 		}
 	},
 	close() {
-		$('#mp_list').slideUp();
+		$('#mp_list').attr('data-dropdown', 'false');
 	}
 }

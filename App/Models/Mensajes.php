@@ -241,6 +241,7 @@ class Mensajes
     public function getMensajes(int $type = 1, bool $unread = false, string $where = 'normal')
     {
         global $tsCore, $tsUser, $tsZCode;
+        $funread = $sunread = '';
         // MONITOR DE MENSAJES SOLO SI HAY MAS  DE 5 NUEVOS
         if ($type == 1) {
             // SI HAY MAS DE 5 MENSAJES NUEVOS SOLO LEEMOS LOS NUEVOS

@@ -82,17 +82,17 @@ function checkNestingCompatibility() {
 $(() => {
 	checkNestingCompatibility();
 
-	document.querySelector('#btnNotifica')?.addEventListener('click', (e) => {
+	$('#btnNotifica')?.on('click', (e) => {
 		e.preventDefault()
 		notifica.last()
 	})
 
-	document.querySelector('#btnMensaje')?.addEventListener('click', (e) => {
+	$('#btnMensaje')?.on('click', (e) => {
 		e.preventDefault()
 		mensaje.last()
 	})
 
-	document.querySelector('#up-collapse')?.addEventListener('click', (e) => {
+	$('#up-collapse')?.on('click', (e) => {
 		$('.up-collapse').toggleClass('show');
 	})
 
@@ -148,8 +148,8 @@ $(() => {
 	});
 	//
 	const displayDropdown = [
-		{ id: '#mon_list', attrName: 'Monitor', callFunction: notifica.last },
-		{ id: '#mp_list', attrName: 'Mensajes', callFunction: mensaje.last }
+		{ id: '.up-droplist[data-list="nots"]', attrName: 'Monitor', callFunction: notifica.last },
+		{ id: '.up-droplist[data-list="mps"]', attrName: 'Mensajes', callFunction: mensaje.last }
 	];
 
 	document.body.addEventListener('click', e => {

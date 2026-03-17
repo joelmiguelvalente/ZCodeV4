@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
          const dropopenValue = this.getAttribute('data-dropopen');
          if (!dropopenValue) return; 
 
-         const targetDropdown = document.querySelector(`.up-dropdown[data-dropname="${dropopenValue}"]:not(.up-dropdown--secondary)`);
-
+         const targetDropdown = document.querySelector(`.up-dropdown[data-dropname="${dropopenValue}"]`);
          if (!targetDropdown) return;
 
          document.querySelectorAll('.up-dropdown:not(.up-dropdown--secondary)').forEach(dropdown => {
@@ -44,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
                
             if (firstItemElement && totalItems > 0) {
                const firstHeight = firstItemElement.offsetHeight;
-               const itemSpacing = 14; // 0.875 * 16px = 14px (ajusta si es distinto)
+               const itemSpacing = 16; // 0.875 * 16px = 14px (ajusta si es distinto)
                let calculatedHeight = (Math.ceil(firstHeight) * totalItems) + (itemSpacing * totalItems) + 'px';
 
-               const secondaryDropdownElement = document.querySelector('.up-dropdown--secondary');
+               const secondaryDropdownElement = document.querySelector('.up-dropdown[data-dropname="userpanel"]');
                if (secondaryDropdownElement) {
                   secondaryDropdownElement.style.height = dropAction ? calculatedHeight : 'auto';
                   secondaryDropdownElement.style.transition = 'height .4s ease-in-out';
