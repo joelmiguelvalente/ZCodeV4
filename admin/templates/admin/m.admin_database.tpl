@@ -1,0 +1,112 @@
+<div class="boxy-title">
+   <h3>Base de datos</h3>
+</div>
+<div id="res" class="boxy-content">
+	{if $tsSave}<div class="empty empty-success">{$tsStatus}</div>{/if}
+	{if $tsAct == ''}
+   	<a href="{$tsConfig.url}/admin/database/backup" class="btn">Crear copia de seguridad</a>
+   	<a href="{$tsConfig.url}/admin/database/lista" class="btn">Lista de backups</a>
+
+   	<div style="overflow-x:auto;">
+		   <table class="mt-3">
+				<thead>
+					<th class="body-bg"><input type="checkbox" class="up-checkbox" name="tables[all]" value="all"></th>
+					<th>Tabla</th>
+					<th>Tamaño</th>
+					<th>Actualizado</th>
+					<th></th>
+				</thead>
+				<tbody>
+					{foreach $tsTablesSQL key=t item=table}
+						<tr data-id="{$table.id}"{if $table.cache != 0} style="background: #f001;"{/if}>
+							<td class="text-center">
+								<input type="checkbox" class="up-checkbox" name="tables[{$table.name}]" value="{$table.name}">
+							</td>
+				         <td>
+				           <div class="table-name">{$table.short}</div>
+				           <div class="table-meta">{$table.engine} · {$table.rows} filas · <span class="table-badge {if $table.rows === 0}empty{else}ok{/if}">{if $table.rows === 0}Vacía{else}Con datos{/if}</span></div>
+				         </td>
+							<td class="text-center table-size">{$table.size}</td>
+							<td class="text-center table-time" data-update="{$table.id}">{$table.update|hace:true}</td>
+							<td>
+								<div class="drop-options text-center">
+									<span role="button" class="actions mx-auto d-flex justify-content-center align-items-center" data-dropdown="#option_{$table.name}">{uicon name="menu_vertical" class="pe-none"}</span>
+									<div class="drop-box" id="option_{$table.name}">
+										<span role="button" title="Analizar {$table.name}" class="db-action" data-action="analyze" data-table="{$table.name}">{uicon name="gauge" class="pe-none" size="1.325rem"} Analizar</span>
+										<span role="button" title="Reparar {$table.name}" class="db-action" data-action="repair" data-table="{$table.name}" data-tableId="{$table.id}">{uicon name="nut" class="pe-none" size="1.325rem"} Reparar</span>
+										<!-- <span role="button" title="Comprobar {$table.name}" class="db-action" data-action="check" data-table="{$table.name}">{uicon name="search" class="pe-none" size="1.325rem"} Comprobar</span> -->
+										{if $table.cache != 0}
+											<span role="button" title="Limpiar {$table.name}" class="db-action" data-action="optimize" data-table="{$table.name}" data-tableId="{$table.id}">{uicon name="database" class="pe-none" size="1.325rem"} Vaciar caché</span>
+										{/if}
+									</div>
+								</div>
+							</td>
+						</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		<h4>Solo las tablas seleccionadas</h4>
+	   <div class="d-block d-lg-flex justify-content-start align-items-center column-gap-3">
+	   	<span role="button" data-action="analyze" class="db-all btn d-block mb-3">Analizar</span>
+	   	<span role="button" data-action="optimize" class="db-all btn d-block mb-3">Limpiar caché</span>
+	   	<span role="button" data-action="repair" class="db-all btn d-block mb-3">Reparar</span>
+	   	<span role="button" data-action="check" class="db-all btn d-block mb-3">Comprobar</span>
+	   </div>
+	{elseif $tsAct === 'backup'} 
+		<h3>Crear copia de seguridad</h3>
+		<p>Desde aquí podrás seleccionar para crear la copia de toda la base de datos o seleccionando algunas tablas que desees hacer el backup</p>
+
+		<label for="todos">
+			<input type="checkbox" class="up-checkbox" id="todos" name="tables[all]" value="all">
+			<span>Todas las tablas</span>
+		</label>
+		<div class="row mb-3">
+			{foreach $tsTablesSQL key=t item=table}
+				<div class="col-12 col-lg-3">
+					<label class="d-flex justify-content-start align-items-center column-gap-2 py-1" for="tabla_{$table.id}">
+						<input type="checkbox" class="up-checkbox" id="tabla_{$table.id}" name="tables[{$table.name}]" value="{$table.name}">
+						<span>{$table.name}</span>
+					</label>
+				</div>
+			{/foreach}
+		</div>
+		<span role="button" onclick="database.create_backup()" class="btn">Crear backup</span>
+		<a href="{$tsConfig.url}/admin/database/lista" class="btn">Lista de backups</a>
+		<a href="{$tsConfig.url}/admin/database/" class="btn">Volver</a>
+	{elseif $tsAct === 'lista'}
+		<table class="admin_table mt-3">
+			<thead>
+				<th>#</th>
+				<th>Nombre</th>
+				<th>Tamaño</th>
+				<th>Creado</th>
+				<th>Acciones</th>
+			</thead>
+			<tbody>
+				{foreach $tsBackupSQL key=t item=sql}
+					<tr>
+						<td style="text-align: center;">{$sql.id}</td>
+						<td>{$sql.name}</td>
+						<td class="text-center">{$sql.size}</td>
+						<td class="text-center">{$sql.date|hace:true}</td>
+						<td>
+							<div class="admin_actions d-flex justify-content-center align-items-center column-gap-2">
+								{if $tsUser->uid == 1}<a href="{$sql.file}" download="{$sql.code_name}.sql" class="text-decoration-none fw-semibold">Descargar</a>{/if}
+								<span role="button" onclick="database.delete_backup('{$sql.name}')" class="fw-semibold">Eliminar</span>
+							</div>
+						</td>
+					</tr>
+				{foreachelse}
+					<tr>
+						<td colspan="5">
+							<div class="empty">No hay backups realizados!</div>
+						</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		<a href="{$tsConfig.url}/admin/database/backup" class="btn">Crear copia de seguridad</a>
+		<a href="{$tsConfig.url}/admin/database/" class="btn">Volver</a>
+	{/if}
+</div>

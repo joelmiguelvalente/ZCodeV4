@@ -1,0 +1,113 @@
+var avatar = {
+	uid: false,
+	key: false,
+   ext: false,
+	informacion: '',
+	current: false,
+	success: false,
+	total: 2,
+	fetching: async (page, data) => {
+		const uploader = await fetch(`${ZCodeApp.url}/upload-${page}.php`, {
+			method: 'POST',
+			body: data
+		});
+		const response = await uploader.json();
+			console.log(response)
+		return response;
+	},
+	subir: async (type = 'desktop') => {
+		$(".avatar-loading").show();
+		const myInput = $(`input.browse[name=${type}]`);
+		const datoUrl = new FormData();
+		datoUrl.append('url', (type === 'url') ? myInput.val() : myInput[0].files[0]);
+		
+		const Response = await avatar.fetching('avatar', datoUrl);
+		if(!empty(Response)) avatar.subida_exitosa(Response);
+	},
+	subida_exitosa: rsp => {
+		$(".verify").removeClass('load');
+		if (rsp.error == 'success') avatar.success = true;
+		else if (rsp.msg) {
+         avatar.key = rsp.key;
+         avatar.ext = rsp.ext;
+         avatar.cortar(rsp.msg);
+		} else {
+			UPModal.alert('Avatar Error', rsp.error, false);
+		}
+		$(".avatar-loading").hide();
+	},
+	cortar: img => {
+		newImageUpload = img + '?t=' + generateRandomString(10);
+		UPModal.setModal({
+			title: 'Cortar avatar',
+			body: `<img class="avatar-cortar" src="${newImageUpload}" />`,
+			buttons: {
+				confirmAction: `avatar.guardar()`,
+				confirmTxt: 'Cortar imagen',
+				cancelShow: true
+			}
+		});
+		$(".avatar-big, #avatar-menu").attr("src", newImageUpload).on('load', () => {
+			let sizes = [160, 160, 'px'];
+			var croppr = new Croppr('.avatar-cortar', {
+			   aspectRatio: 1, // Mantemos el tamanio cuadrado 1:1
+			   // Minimo de 120px x  120px
+    			startSize: sizes, 
+    			minSize: sizes, 
+    			// Enviamos las coordenadas para cortar la imagen
+    			// Tiene la funcion onCropEnd ya que es como va a quedar
+    			onCropEnd: data => avatar.informacion = data ?? avatar.vistaPrevia,
+            onCropMove: avatar.vistaPrevia
+			});
+		});
+	},
+	vistaPrevia: function (coords) {
+      let rx = 160 / coords.width;
+      let ry = 160 / coords.height;
+      
+      let $img = $('#avatar-img');
+   	let $cropBox = $('.avatar-cortar');
+   	let { naturalWidth, naturalHeight } = $img[0];
+   	let scaleX = coords.width / 160;
+   	let scaleY = coords.height / 160;
+
+   	$img.css({
+      	width: naturalWidth + 'px', // Mantener tamaño real
+      	height: naturalHeight + 'px',
+         transform: `translate(-${coords.x * scaleX}px, -${coords.y * scaleY}px)`,
+         position: 'absolute'
+      });
+   },
+   recargar: function () {
+      const avatarLoader = $(".avatar_loader");
+      $.each(avatarLoader, function() {
+         const avatarImage = `${avatar.current}?t=${generateRandomString(10)}`;
+         $(this).css('').attr("src", avatarImage)
+      });
+   },
+	guardar: async () => {
+		if (empty(avatar.informacion)) cuenta.alerta('Debes seleccionar una parte de la foto', 0);
+		else {
+			const allcoord = {
+				key: avatar.key,
+				ext: avatar.ext,
+				x: avatar.informacion.x,
+				y: avatar.informacion.y,
+				w: avatar.informacion.width,
+				h: avatar.informacion.height
+			};
+			const coordenadas = new FormData();
+			for (const prop in allcoord) coordenadas.append(prop, allcoord[prop]);
+			const resultado = await avatar.fetching('crop', coordenadas)
+			if(resultado.error === "success") {
+				UPModal.proccess_end();
+			   UPModal.alert('Avatar creador', "Tu avatar se ha creado correctamente...", true);
+			   avatar.recargar();
+			   $("#input_add").hide();
+			   $(`input[name="url"]`).attr({
+			   	value: ''
+			   })
+			}
+		}
+	}
+}

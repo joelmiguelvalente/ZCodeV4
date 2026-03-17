@@ -1,0 +1,42 @@
+# =========================================
+# Entorno y credenciales
+# =========================================
+.env
+.env.local
+.env.*.local
+.env.dev
+.env.test
+*.key
+
+# =========================================
+# Archivos y extensiones no necesarias
+# =========================================
+*.txt
+*.py
+*.lock
+sitemap.xml
+
+# =========================================
+# Composer
+# =========================================
+/vendor/
+!composer.lock
+
+# =========================================
+# Carpetas a ignorar
+# =========================================
+
+# Archivos generados o temporales
+append/
+
+# Storage completo
+storage/
+
+# Themes: ignorar todos menos "default"
+views/themes/*
+!views/themes/default/
+
+# =========================================
+# Archivos generados por la instalación
+# =========================================
+app/database/*.json

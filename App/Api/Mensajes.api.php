@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @package     ZCode
+ * @author      Miguel92
+ * @copyright   2024 - 2026
+ * @version     4.0.0
+*/
+
+if (! defined('ZCODE_ULTIMATE')) {
+    exit('No se permite el acceso directo al script');
+}
+
+// NIVELES DE ACCESO Y PLANTILLAS DE CADA ACCI�N
+$files = [
+    'mensajes-validar' => ['n' => 2, 'p' => ''],
+   'mensajes-enviar' => ['n' => 2, 'p' => ''],
+   'mensajes-respuesta' => ['n' => 2, 'p' => 'resp'],
+   'mensajes-lista' => ['n' => 2, 'p' => 'lista'],
+   'mensajes-editar' => ['n' => 2, 'p' => ''],
+];
+
+// REDEFINIR VARIABLES
+$tsPage = 'php_files/p.mensajes.' . $files[$action]['p'];
+
+$tsLevel = $files[$action]['n'];
+
+$tsAjax = empty($files[$action]['p']) ? 1 : 0;
+
+// DEPENDE EL NIVEL
+$tsLevelMsg = $tsCore->setLevel($tsLevel, true);
+if ($tsLevelMsg != 1) {
+    echo '0: ' . $tsLevelMsg['mensaje'];
+    die();
+}
+
+// CODIGO
+switch ($action) {
+    case 'mensajes-validar':
+        echo $tsMP->getValid();
+        break;
+    case 'mensajes-enviar':
+        echo $tsMP->newMensaje();
+        break;
+    case 'mensajes-respuesta':
+        $smarty->assign("mp", $tsMP->newRespuesta());
+        break;
+    case 'mensajes-lista':
+        $smarty->assign("tsMensajes", $tsMP->getMensajes(1, false, 'monitor'));
+        break;
+    case 'mensajes-editar':
+        echo $tsMP->editMensajes();
+        break;
+}
+
+$_GET['ts'] = true;

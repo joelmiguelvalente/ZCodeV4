@@ -1,0 +1,32 @@
+<section class="up-card">
+	{include "CardHeader.tpl" iconName="graph-box" label="Estad&iacute;sticas"}
+	<div class="up-card--body up-card--stats">
+		<div class="d-grid gap-2">
+			<div class="text-center text-uppercase small py-3 position-relative">
+				{uicon name="{if $tsConfig.c_ver_vistas_global}globe{else}graph-box{/if}" class="position-absolute z-1 iconify-62" size="5rem" stroke="var(--main-bg)"}
+				<a href="{$tsConfig.url}/usuarios/?online=true" class="text-decoration-none z-2 fw-bold position-relative body-color">
+					{if $tsConfig.c_ver_vistas_global}
+						<span class="h4 d-block m-0">{$tsStats.stats_global}</span> visitas
+					{else}
+						<span class="h4 d-block m-0">{$tsStats.stats_online}</span> online
+					{/if}
+				</a>
+			</div>
+			<div class="text-center text-uppercase small py-3 position-relative">
+				{uicon name="users" class="position-absolute z-1 iconify-62" size="5rem" stroke="var(--main-bg)"}
+				<a href="{$tsConfig.url}/usuarios/" class="text-decoration-none z-2 fw-bold position-relative body-color">
+					<span class="h4 d-block m-0">{$tsStats.stats_miembros}</span> miembros
+				</a>
+			</div>
+			<div class="text-center text-uppercase small py-3 position-relative">
+				{uicon name="document-stack" class="position-absolute z-1 iconify-62" size="5rem" stroke="var(--main-bg)"}
+				<span class="z-2 fw-bold position-relative body-color">
+					<span class="h4 d-block m-0">{$tsStats.stats_posts}</span> posts
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="up-card--footer">
+		<span>Actualizado: {$tsStats.stats_time|hace:true}</span>
+	</div>
+</section>

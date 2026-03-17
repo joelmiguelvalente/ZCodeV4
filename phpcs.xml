@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="ZCode v4">
+    <description>Estándar PSR12 personalizado</description>
+
+    <!-- Carpeta a analizar -->
+    <file>App/</file>
+
+    <!-- Excluir carpetas -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>App/Plugins/*</exclude-pattern>
+    <exclude-pattern>App/Extensiones/*</exclude-pattern>
+    <exclude-pattern>App/Patches/*</exclude-pattern>
+
+    <!-- Estándar base -->
+    <rule ref="PSR12"/>
+
+    <!-- Excluir la regla de longitud de PSR12 y redefinirla -->
+    <rule ref="Generic.Files.LineLength">
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
+
+    <rule ref="PSR1.Files.SideEffects">
+        <severity>0</severity>
+    </rule>
+
+   <!-- Aumentar límite de líneas -->
+   <rule ref="Generic.Files.LineLength">
+       <properties>
+           <property name="lineLimit" value="0"/>
+           <property name="absoluteLineLimit" value="3000"/>
+       </properties>
+   </rule>
+
+</ruleset>

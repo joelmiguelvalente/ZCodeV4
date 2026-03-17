@@ -1,0 +1,58 @@
+.up-card--stats > div {
+	grid-template-columns: repeat(3, 1fr);
+}
+.up-card--stats .uicon-svg {
+	top: .325rem;
+	left: .5rem;
+	opacity: .1;
+}
+
+.fotos-content {
+   columns: 200px;
+   > .foto-item {
+      margin-bottom: 1rem;
+      .foto-item_img {
+      	min-height: 150px;
+         height: auto;
+      }
+   }
+}
+
+.foto-item .foto-item_img {
+	width: 100%;
+	object-fit: cover;
+}
+.foto-item .foto-item_data {
+	padding: 0.5rem;
+}
+.autor-rango {
+	background-repeat: no-repeat;
+	background-position: .325rem;
+	background-size: 1rem;
+}
+.box-comment {
+	--avatar: 50px;
+	grid-template-columns: var(--avatar) 1fr;
+	border-top: 1px solid var(--border-color);
+   background: var(--translucent-bg);
+}
+.box-comment--avatar {
+	width: var(--avatar);
+	height: var(--avatar);
+}
+.box-comment--message textarea {
+	display: block;
+	width: 100%;
+	height: 126px;
+}
+.comments .item {
+	margin-bottom: 1rem;	
+}
+.comments .item:last-child {
+	margin-bottom: 0;	
+}
+#foto_form {
+	.loader {
+		background: var(--body-bg);
+	}
+}

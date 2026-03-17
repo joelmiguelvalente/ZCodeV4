@@ -1,0 +1,196 @@
+.folder-tabs {
+	grid-template-columns: 240px 1fr 300px;
+}
+.folder--item {
+	margin-right: -3px;
+	border-right: transparent;
+}
+.folder--item:hover {
+	border-right: 1px solid transparent;
+}
+.folder--form {
+	padding: 0.5rem;
+}
+
+@media (width >= 1200px) {
+	.folder--item:hover, 
+	.folder--item.active {
+		border-right: 3px solid rgba(200,200,200,.5);
+	}
+	[data-theme="dark"] .folder--item:hover, 
+	[data-theme="dark"] .folder--item.active {
+		border-right: 3px solid rgba(0,0,0,.5);
+	}
+	.folder--form {
+		border-left: 3px solid var(--main-bg);
+	}
+}
+.only-avatar .webp-gif {
+	grid-template-columns: 12rem 1fr;
+}
+.avatar-loading {
+	inset: 0;
+	display: grid;
+	background: var(--main-bg-rgb)!important;
+	backdrop-filter: blur(6px);
+}
+.avatar-loading svg {
+	stroke: var(--main-color)!important;
+}
+.field-social svg {
+	width: 1.675rem!important;
+	height: 1.675rem!important;
+}
+.up-form--cuenta label {
+	display: block;
+}
+.up-form--cuenta label input {
+	position: absolute;
+}
+.up-form--cuenta label .up-cuenta--icon  {
+	background: rgba(200,200,200,.1);
+	padding: 0.325rem 0.5rem;
+}
+[data-theme="dark"] .up-form--cuenta label .up-cuenta--icon  {
+	background: rgba(0,0,0,.1);
+}
+.up-form--cuenta label input:checked + span {
+	background: var(--main-bg)!important;
+	color: #FFF;
+	font-weight: 600;
+}
+
+#drop-region {
+	top: 0;
+	left: 0;
+}
+#drop-region input[type="file"] {
+	opacity: 0;
+}
+
+.buttons {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem;
+}
+.example {
+	background: var(--body-bg);
+}
+.example[data-theme="dark"] {
+	color-scheme: dark;
+}
+.example .box--example.normal {
+	background-color: var(--main-bg);
+}
+.example .box--example.hover {
+	background-color: var(--main-bg-hover);
+}
+.example .box--example.active {
+	background-color: var(--main-bg-active);
+}
+.example .box--example.transparent {
+	background-color: var(--main-bg-rgb);
+}
+
+.switch {
+	/* switch */
+	--switch-width: 46px;
+	--switch-height: 24px;
+	--switch-bg: rgb(131, 131, 131);
+	--switch-checked-bg: rgb(0, 218, 80);
+	--switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
+	--switch-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+	/* circle */
+	--circle-diameter: 18px;
+	--circle-bg: #fff;
+	--circle-shadow: 1px 1px 2px rgba(146, 146, 146, 0.45);
+	--circle-checked-shadow: -1px 1px 2px rgba(163, 163, 163, 0.45);
+	--circle-transition: var(--switch-transition);
+	/* icon */
+	--icon-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+	--icon-cross-color: var(--switch-bg);
+	--icon-cross-size: 6px;
+	--icon-checkmark-color: var(--switch-checked-bg);
+	--icon-checkmark-size: 10px;
+	/* effect line */
+	--effect-width: calc(var(--circle-diameter) / 2);
+	--effect-height: calc(var(--effect-width) / 2 - 1px);
+	--effect-bg: var(--circle-bg);
+	--effect-border-radius: 1px;
+	--effect-transition: all .2s ease-in-out;
+}
+
+.switch svg {
+	transition: var(--icon-transition);
+}
+.switch .checkmark {
+	width: var(--icon-checkmark-size);
+	color: var(--icon-checkmark-color);
+	transform: scale(0);
+}
+.switch .cross {
+	width: var(--icon-cross-size);
+	color: var(--icon-cross-color);
+}
+
+.slider {
+	box-sizing: border-box;
+	width: var(--switch-width);
+	height: var(--switch-height);
+	background: var(--switch-bg);
+	border-radius: 999px;
+	transition: var(--switch-transition);
+	cursor: pointer;
+}
+
+.circle {
+	width: var(--circle-diameter);
+	height: var(--circle-diameter);
+	background: var(--circle-bg);
+	border-radius: inherit;
+	box-shadow: var(--circle-shadow);
+	transition: var(--circle-transition);
+	left: var(--switch-offset);
+}
+
+.slider::before {
+	content: "";
+	position: absolute;
+	width: var(--effect-width);
+	height: var(--effect-height);
+	left: calc(var(--switch-offset) + (var(--effect-width) / 2));
+	background: var(--effect-bg);
+	border-radius: var(--effect-border-radius);
+	transition: var(--effect-transition);
+}
+.switch input:checked+.slider {
+	background: var(--switch-checked-bg);
+}
+.switch input:checked+.slider .checkmark {
+	transform: scale(1);
+}
+.switch input:checked+.slider .cross {
+	transform: scale(0);
+}
+.switch input:checked+.slider::before {
+  	left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
+}
+.switch input:checked+.slider .circle {
+	left: calc(100% - var(--circle-diameter) - var(--switch-offset));
+	box-shadow: var(--circle-checked-shadow);
+}
+#mis_avatares {
+	[data-myavatar] {
+		span {
+			display: none;
+			cursor: pointer;
+		}
+		&:hover {
+			span {
+				display: block;
+			}
+		}
+	}
+}

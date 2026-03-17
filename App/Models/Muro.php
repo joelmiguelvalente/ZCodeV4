@@ -1,0 +1,892 @@
+<?php
+
+/**
+ * @package     ZCode
+ * @author      Miguel92
+ * @copyright   2024 - 2026
+ * @version     4.0.0
+*/
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+if (!defined('ZCODE_ULTIMATE')) {
+    exit('No se permite el acceso directo al script');
+}
+
+use App\Models\Cuenta;
+use App\Utils\OpenGraph;
+
+class Muro
+{
+    public const MAX_URL_LENGTH = 400;
+
+    public const MAX_IMAGE_URL_LENGTH = 300;
+
+    public const MIN_IMAGE_SIZE = 130;
+
+    public const MAX_IMAGE_SIZE = 2048;
+
+    protected Core $Core;
+    protected User $User;
+    protected Cuenta $Cuenta;
+
+    private array $status = [
+        'muro'              => ['status' => true, 'message' => ''],
+        'muro_firma'        => ['status' => true, 'message' => ''],
+        'mesaje_privado'    => ['status' => true, 'message' => ''],
+        'ultimas_visitas' => ['status' => true, 'message' => '']
+    ];
+
+    public function __construct(Core $Core, User $User, Cuenta $Cuenta)
+    {
+        $this->Core = $Core;
+        $this->User = $User;
+        $this->Cuenta = $Cuenta;
+    }
+
+    /*
+          getPrivacity()
+    */
+    public function getPrivacity(int $user_id = 0, string $username = '', int $follow = 0, int $yfollow = 0)
+    {
+        $priv['m']['v'] = true;
+        $priv['mf']['v'] = true;
+        $priv['rmp']['v'] = true;
+        $is_me = ($this->User->uid == $user_id) ? true : false;
+
+        $lesigoomesigue = ($follow === 0 && $yfollow === 0) ? false :  true;
+        $lesigoymesigue = ($follow === 1 && $yfollow === 1) ? true : false;
+          //
+        $data = db_exec('fetch_assoc', db_exec([__FILE__, __LINE__], 'query', "SELECT p_configs FROM @perfil WHERE user_id = $user_id LIMIT 1"));
+        $data['p_configs'] = safe_unserialize($data['p_configs']);
+        // VER MURO
+        switch ($data['p_configs']['m']) {
+            case 0:
+                if (!$is_me && !$this->User->is_admod) {
+                    $priv['m']['v'] = false;
+                }
+                $priv['m']['m'] = "Lo sentimos pero $username no permite ver su muro a nadie.";
+                break;
+            case 1:
+                if (!$lesigoymesigue && !$is_me && !$this->User->is_admod) {
+                    $priv['m']['v'] = false;
+                }
+                $priv['m']['m'] = "Debes seguir a $username y &eacute;ste debe seguirte para poder ver su muro.";
+                break;
+            case 2:
+                if (!$lesigoomesigue && !$is_me && !$this->User->is_admod) {
+                    $priv['m']['v'] = false;
+                }
+                $priv['m']['m'] = "'Debes seguir a $username o &eacute;ste debe seguirte para poder ver su muro.";
+                break;
+            case 3:
+                if ($follow == 0 && !$is_me && !$this->User->is_admod) {
+                    $priv['m']['v'] = false;
+                }
+                 $priv['m']['m'] = "'Debes seguir a $username para poder ver su muro.";
+                break;
+            case 4:
+                if ($yfollow == 0 && !$is_me && !$this->User->is_admod) {
+                    $priv['m']['v'] = false;
+                }
+                $priv['m']['m'] = "$username debe seguirte para que puedas ver su muro";
+                break;
+            case 5:
+                if (!$this->User->is_member) {
+                    $priv['m']['v'] = false;
+                }
+                $priv['m']['m'] = "Solo usuarios <a href=\"{$this->Core->settings['url']}/registro/\" rel=\"internal\" class=\"fw-semibold text-decoration-none\">registrados</a> pueden ver el muro de $username";
+                break;
+        }
+        // FIRMAR MURO
+        switch ($data['p_configs']['mf']) {
+            case 0:
+                if (!$is_me && !$this->User->is_admod) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "Lo sentimos pero $username no permite firmar su muro a nadie.";
+                break;
+            case 1:
+                if (!$lesigoymesigue && !$is_me && !$this->User->is_admod) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "Debes seguir a $username y &eacute;ste debe seguirte para poder firmar y comentar su muro.";
+                break;
+            case 2:
+                if (!$lesigoomesigue && !$is_me && !$this->User->is_admod) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "Debes seguir a $username o &eacute;ste debe seguirte para poder firmar y comentar su muro.";
+                break;
+            case 3:
+                if ($follow == 0 && !$is_me && !$this->User->is_admod) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "Debes seguir a $username para poder firmar y comentar su muro.";
+                break;
+            case 4:
+                if ($yfollow == 0 && !$is_me && !$this->User->is_admod) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "$username debe seguirte para que puedas firmar y comentar su muro";
+                break;
+            case 5:
+                if (!$this->User->is_member) {
+                    $priv['mf']['v'] = false;
+                }
+                $priv['mf']['m'] = "Solo usuarios <a href=\"{$this->Core->settings['url']}/registro/\" rel=\"internal\" class=\"fw-semibold text-decoration-none\">registrados</a> pueden firmar el muro de $username";
+                break;
+        }
+        //
+        return $priv;
+    }
+    /**
+    * Método principal para validar y procesar diferentes tipos de URLs.
+    *
+    * @param bool $return Indica si debe retornar solo la URL o un HTML con la información.
+    * @param string|null $urlin URL opcional proporcionada directamente.
+    * @return string|array Resultado de la validación en formato de cadena o array.
+   */
+    public function ajaxCheck(bool $return = false, string $urlin = '')
+    {
+        try {
+            $type = $this->validateType($_GET['type']);
+            $url = $this->sanitizeUrl($urlin ?? $_POST['url']);
+
+            $OpenGraph = new OpenGraph();
+            switch ($type) {
+                case 'foto':
+                    return $this->validatePhoto($url, $return);
+                break;
+                case 'enlace':
+                    return $this->validateLink($url, $OpenGraph, $return);
+                break;
+                case 'video':
+                    return $this->validateVideo($url, $OpenGraph, $return);
+                break;
+                default:
+                    throw new Exception('0: El campo <strong>type</strong> es obligatorio.');
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+   /**
+    * Valida el tipo proporcionado.
+    *
+    * @param string $type Tipo de validación a realizar.
+    * @return string Tipo validado.
+    * @throws Exception Si el tipo está vacío.
+   */
+    private function validateType($type)
+    {
+        if (empty($type)) {
+            throw new Exception('0: El campo <strong>type</strong> es obligatorio.');
+        }
+        return $type;
+    }
+
+   /**
+    * Sanitiza la URL proporcionada.
+    *
+    * @param string $url URL a sanitizar.
+    * @return string URL sanitizada.
+    * @throws Exception Si la URL está vacía.
+   */
+    private function sanitizeUrl($url)
+    {
+        $url = $this->Core->setSecure($url);
+        if (empty($url)) {
+            throw new Exception('0: El campo <strong>url</strong> es obligatorio.');
+        }
+        return $url;
+    }
+
+   /**
+    * Valida una URL de imagen.
+    *
+    * @param string $url URL de la imagen.
+    * @param bool $return Indica si debe retornar solo la URL o un HTML con la imagen.
+    * @return string Resultado de la validación en formato de cadena.
+    * @throws Exception Si la URL de la imagen no es válida.
+   */
+    private function validatePhoto($url, $return)
+    {
+        if (strlen($url) > self::MAX_IMAGE_URL_LENGTH) {
+            throw new Exception('0: La url de la imagen es demasiado larga.');
+        }
+        $data = getimagesize($url);
+        if (empty($data[0])) {
+            throw new Exception('0: La url ingresada no existe o no es una imagen v&aacute;lida.');
+        }
+        if ($data[0] < self::MIN_IMAGE_SIZE || $data[1] < self::MIN_IMAGE_SIZE) {
+            throw new Exception("0: Tu foto debe tener un tama&ntilde;o superior a " . self::MIN_IMAGE_SIZE . "x" . self::MIN_IMAGE_SIZE . " pixeles.");
+        }
+        if ($data[0] > self::MAX_IMAGE_SIZE || $data[1] > self::MAX_IMAGE_SIZE) {
+            throw new Exception("0: Tu foto debe tener un tama&ntilde;o menor a " . self::MAX_IMAGE_SIZE . "x" . self::MAX_IMAGE_SIZE . " pixeles.");
+        }
+        return $return ? $url : "1: <div class=\"muro-image\"><img class=\"w-100\" src=\"$url\"/></div>";
+    }
+
+    /**
+    * Valida una URL de enlace.
+    *
+    * @param string $url URL del enlace.
+    * @param getOpenGraph $OpenGraph Instancia de la clase OpenGraph para obtener metadatos.
+    * @param bool $return Indica si debe retornar solo la URL o un HTML con la información.
+    * @return string|array Resultado de la validación en formato de cadena o array.
+    * @throws Exception Si la URL del enlace no es válida.
+   */
+    private function validateLink($url, $OpenGraph, $return)
+    {
+        if (strlen($url) > self::MAX_URL_LENGTH) {
+            throw new Exception('0: La url es demasiado larga.');
+        }
+        $data = $OpenGraph->getUrlDataInfo($url);
+        if (!$data) {
+            throw new Exception('0: El enlace ingresado no es v&aacute;lido, no esta disponible o no existe.');
+        }
+        $title = $this->Core->setSecure($data['title']);
+        $description = $data['description'] ?? $url;
+        if (!$title) {
+            throw new Exception('0: La url ingresada no es una p&aacute;gina web v&aacute;lida.');
+        }
+        if ($return) {
+            return [
+                'title' => $title,
+                'url' => $this->Core->setSecure($url),
+                'description' => substr($description, 0, 160)
+            ];
+        }
+        return "1: <div class=\"muro-link\"><a href=\"$url\" target=\"_blank\" class=\"muro-link--title\">$title</a><span class=\"muro-link--description\">$description</span></div>";
+    }
+    /**
+   * Valida una URL de video de YouTube.
+   *
+   * @param string $url URL del video de YouTube.
+   * @param getOpenGraph $OpenGraph Instancia de la clase OpenGraph para obtener metadatos.
+   * @param bool $return Indica si debe retornar solo la URL o un HTML con el video.
+   * @return string|array Resultado de la validación en formato de cadena o array.
+   * @throws Exception Si la URL del video no es válida.
+   */
+    private function validateVideo($url, $OpenGraph, $return)
+    {
+        $videoId = $this->extractYoutubeId($url);
+        if (!$videoId) {
+            throw new Exception('0: La direcci&oacute;n del video no es v&aacute;lida.');
+        }
+        $data = $OpenGraph->getUrlDataInfo("http://www.youtube.com/watch?v=$videoId");
+        if (empty($data['title'])) {
+            throw new Exception('0: La URL contiene un ID de video incorrecto o el video ha sido eliminado.');
+        }
+        $title = $this->Core->setSecure($data['title']);
+        $description = $this->Core->setSecure($data['description']);
+        if ($return) {
+            return [
+                'ID' => $videoId,
+                'title' => $title,
+                'image' => "https://i.ytimg.com/vi/$videoId/maxresdefault.jpg",
+                'description' => $description
+            ];
+        }
+        return "1: <div class=\"muro-video\"><lite-youtube videoid=\"$videoId\" style=\"background-image: url('https://i.ytimg.com/vi/$videoId/maxresdefault.jpg');\"></lite-youtube><div class=\"muro-video--description\"><a href=\"http://www.youtube.com/watch?v=$videoId\" target=\"_blank\" class=\"muro-link--title\">$title</a><span class=\"muro-link--description\">$description</span></div></div>";
+    }
+
+    /**
+    * Extrae el ID de un video de YouTube de una URL proporcionada.
+    *
+    * @param string $url URL del video de YouTube.
+    * @return string|false ID del video si es válido, false en caso contrario.
+   */
+    private function extractYoutubeId($url)
+    {
+        $pattern = '/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?feature=player_embedded&v=))([^&]{11})/';
+        if (preg_match($pattern, $url, $matches)) {
+            return $matches[1];
+        }
+        return false;
+    }
+
+    private function createPublicationSimple(int $type_pub = 1)
+    {
+        $date = time();
+        $pid = (int)$_POST['pid'];
+        $data = $this->Core->setSecure($_POST['data'], true);
+        $myIP = $this->Core->executeIP();
+        return "INSERT INTO @muro (`p_user`, `p_user_pub`, `p_body`, `p_date`, `p_type`, `p_ip`) VALUES ($pid, {$this->User->uid}, '$data', $date, $type_pub, '$myIP')";
+    }
+    /*
+        streamPost()
+    */
+    public function streamPost()
+    {
+        global $tsMonitor, $tsActividad;
+        //
+        $pid = (int)$_POST['pid'];
+        $data = $this->Core->setSecure($_POST['data'], true);
+        $adj = $this->Core->setSecure($_POST['adj'], true);
+        $type = $_GET['type'];
+        // VALIDAMOS SI EXISTE EL PERFIL/USUARIO
+        $exists = $this->User->getUserName($pid);
+        if (empty($exists)) {
+            return '0: El usuario al que intentas comentar no existe.';
+        }
+        // VERIFICAR QUE PERMITA COMPARTIR EN SU MURO
+        $priv = $this->getPrivacity($pid, $exists, $this->Cuenta->iyfollow($pid, 'iFollow'), $this->Cuenta->iyfollow($pid, 'yFollow'));
+        // SE PERMITE FIRMAR EL MURO?
+        if ($priv['mf']['v'] == false) {
+            return '0: ' . $priv['mf']['m'];
+        }
+        // VARIABLES COMUNES
+        $date = time();
+        $append_array = [];
+        // TIPO DE PUBLICACION
+        switch ($type) {
+            // PUBLICAR STATUS/PUBLICACION
+            case 'status':
+                $text = str_replace(["\n","\t",' '], "", $data);
+                if (strlen($text) <= 0) {
+                    return '0: Tu publicaci&oacute;n debe tener al menos una letra.';
+                }
+                $this->Core->antiFlood();
+                if (db_exec([__FILE__, __LINE__], 'query', $this->createPublicationSimple())) {
+                    $pub_id = db_exec('insert_id');
+                    $type = ($pid == $this->User->uid) ? 'status' : 'mpub';
+                }
+                break;
+            // PUBLICAR FOTO
+            case 'foto':
+                // VALIDAMOS
+                $foto = $this->ajaxCheck(true, $adj);
+                if (substr($foto, 0, 1) == '0') {
+                    return $foto;
+                }
+                // ANTI FLOOD
+                $this->Core->antiFlood();
+                $foto = $this->Core->setSecure($foto, true);
+                // INSERTAMOS
+                if (db_exec([__FILE__, __LINE__], 'query', $this->createPublicationSimple(2))) {
+                    $pub_id = db_exec('insert_id');
+                    if (db_exec([__FILE__, __LINE__], 'query', "INSERT INTO @muro_adjuntos (pub_id, adj_url, adj_image) VALUES ($pub_id, '$foto', '$foto')")) {
+                        $type = 'mfoto';
+                        // RETORNAMOS DATOS PARA EL TEMPLATE
+                        $append_array = [
+                            'p_type' => 2,
+                            'adj_url' => $foto,
+                            'adj_image' => $foto
+                        ];
+                    }
+                }
+                break;
+            // PUBLICAR ENLACE
+            case 'enlace':
+                // VALIDAR
+                $enlace = $this->ajaxCheck(true, $adj);
+                // ANTI FLOOD
+                $this->Core->antiFlood();
+                $title = $this->Core->setSecure($enlace['title'], true);
+                $url = $this->Core->setSecure($enlace['url'], true);
+                $description = $this->Core->setSecure($this->Core->parseBadWords($enlace['description']));
+                // INSERTAR
+                if (db_exec([__FILE__, __LINE__], 'query', $this->createPublicationSimple(3))) {
+                    $pub_id = db_exec('insert_id');
+                    // INSERTAR ADJUNTO
+                    if (db_exec([__FILE__, __LINE__], 'query', "INSERT INTO @muro_adjuntos (pub_id, adj_title, adj_url, adj_description) VALUES ($pub_id, '$title', '$url', '$description')")) {
+                        $type = 'mlink';
+                        // RETORNAMOS DATOS PARA EL TEMPLATE
+                        $append_array = [
+                            'p_type' => 3,
+                            'adj_title' => $title,
+                            'adj_url' => $url,
+                            'adj_description' => $description
+                        ];
+                    }
+                }
+                break;
+            // PUBLICAR VIDEO
+            case 'video':
+                // VALIDAR
+                $video = $this->ajaxCheck(true, $adj);
+                // ANTI FLOOD
+                $this->Core->antiFlood();
+                $ID = $this->Core->setSecure($video['ID'], true);
+                $title = $this->Core->setSecure($video['title'], true);
+                $image = $this->Core->setSecure($video['image'], true);
+                $description = $this->Core->setSecure($video['description'], true);
+                // INSERTAR
+                if (db_exec([__FILE__, __LINE__], 'query', $this->createPublicationSimple(4))) {
+                    $pub_id = db_exec('insert_id');
+                    // INSERTAR ADJUNTO
+                    if (db_exec([__FILE__, __LINE__], 'query', "INSERT INTO @muro_adjuntos (pub_id, adj_title, adj_url, adj_image, adj_description) VALUES ($pub_id, '$title', '$ID', '$image', '$description')")) {
+                        $type = 'mvideo';
+                        // RETORNAMOS DATOS PARA EL TEMPLATE
+                        $append_array = [
+                            'p_type' => 4,
+                            'adj_title' => $title,
+                            'adj_url' => $ID,
+                            'adj_image' => $image,
+                            'adj_desc' => $description
+                        ];
+                    }
+                }
+                break;
+            default:
+                $return = '0: El campo <strong>type</strong> es obligatorio.';
+                break;
+        }
+        $return = [
+            'pub_id' => $pub_id,
+            'p_user' => $pid,
+            'p_user_pub' => $this->User->uid,
+            'p_body' => $this->Core->parseBadWords($this->Core->setMenciones($data), true),
+            'p_date' => $date,
+            'p_likes' => 0,
+            'likes' => ['link' => 'Me gusta'],
+            ...$append_array
+        ];
+        $return['user_name'] = $this->User->nick;
+        $return['avatar'] = $tsZCode->getAvatar($this->User->uid, 'use');
+        // MONITOR
+        $tsMonitor->setNotificacion(12, $pid, $this->User->uid, $pub_id);
+        // ACTIVIDAD
+        $is_my = ($pid == $this->User->uid) ? 0 : 2;
+        $tsActividad->setActividad(10, $pub_id, $is_my);
+        $tsMonitor->setFollowNotificacion(18, ($pid == $this->User->uid), $this->User->uid, $pub_id);
+        // RETORNAR VALOR
+        return $return;
+    }
+
+    /*
+     streamRepost()
+    */
+    public function streamRepost()
+    {
+        global $tsMonitor, $tsActividad;
+        //
+        $data = $this->Core->setSecure($this->Core->parseBadWords($_POST['data']));
+        $pid = (int)$_POST['pid'];
+        //
+        $pub = db_exec('fetch_assoc', db_exec([__FILE__, __LINE__], 'query', "SELECT `p_user`, `p_user_pub` FROM @muro WHERE `pub_id` = $pid LIMIT 1"));
+        //
+        if ($pub['p_user'] <= 0) {
+            return '0: La publicaci&oacute;n no existe.';
+        }
+        // VACIO?
+        $text = str_replace(array("\n","\t",' '), "", $data);
+        if (strlen($text) <= 0) {
+            return '0: Tu comentario debe tener al menos una letra.';
+        }
+        // ANTI FLOOD
+        $this->Core->antiFlood();
+        // CONTINUAMOS
+        $date = time();
+        $myIP = $this->Core->executeIP();
+        if (!db_exec([__FILE__, __LINE__], 'query', "INSERT INTO @muro_comentarios (`pub_id`, `c_user`, `c_date`, `c_body`, `c_ip`) VALUES ($pid, {$this->User->uid}, '$date', '$data', '$myIP')")) {
+            return '0: ' . ShowError('Error al ejecutar la consulta de la l&iacute;nea ' . __LINE__ . ' de ' . __FILE__ . '.', 'db');
+        }
+        $cid = db_exec('insert_id');
+        // MONITOR
+        $tsMonitor->setMuroRepost($pid, $pub['p_user'], $pub['p_user_pub']);
+        // ACTIVIDAD
+        $is_my = ($pub['p_user'] == $this->User->uid) ? 1 : 3;
+        $tsActividad->setActividad(10, $cid, $is_my);
+        // UPDATES
+        db_exec([__FILE__, __LINE__], 'query', "UPDATE @muro SET `p_comments` = p_comments + 1 WHERE `pub_id` = $pid");
+        // PARA LA PANTILLA
+        return [
+            'cid' => $cid,
+            'c_body' => $data,
+            'c_date' => $date,
+            'c_user' => $this->User->uid,
+            'c_likes' => 0,
+            'like' => 'Me gusta',
+            'user_name' => $this->User->nick
+        ];
+    }
+
+    // CARGAR ROW
+    private function loadsRow($query)
+    {
+        global $tsCore, $tsZCode;
+        $data = [];
+        while ($row = db_exec('fetch_array', $query)) {
+            $row['likes'] = ($row['p_likes'] > 0) ? $this->getPubExtras($row['pub_id'], 'likes', $row['p_likes']) : ['link' => 'Me gusta'];
+            if ($row['p_comments'] > 0) {
+                $row['comments'] = $this->getPubExtras($row['pub_id'], 'comments', 2);
+            }
+            $row['avatar'] = $tsZCode->getAvatar($row['user_id'], 'use');
+            $parseBody = $this->Core->parseBBCode($row['p_body'], 'smiles');
+            $row['p_body'] = $this->Core->parseBadWords($this->Core->setMenciones($parseBody), true);
+            $row['p_body'] = rawurldecode($row['p_body']);
+            // CARGAR ADJUNTOS
+            if ($row['p_type'] != 1) {
+                $adjs = db_exec('fetch_assoc', db_exec([__FILE__, __LINE__], 'query', "SELECT * FROM @muro_adjuntos WHERE pub_id = {$row['pub_id']} LIMIT 1"));
+                $data[] = array_merge($row, $adjs);
+            } else {
+                $data[] = $row;
+            }
+        }
+        return ['total' => safe_count($data), 'data' => $data];
+    }
+
+    /*
+      getNews()
+    */
+    public function getNews(int $start = 0, int $limit = 10)
+    {
+        // SOLO MOSTRAREMOS LAS ULTIMAS 100 PUBLICACIONES
+        if ($start > 90) {
+            return array('total' => '-1');
+        }
+        // SEGUIDORES
+        $follows = result_array(db_exec([__FILE__, __LINE__], 'query', "SELECT f_id FROM @follows WHERE f_user = {$this->User->uid} AND f_type = 1"));
+
+        // ORDENAMOS
+        foreach ($follows as $key => $val) {
+            // PERMISO PARA VER SUS PUBLICACIONES??
+            $priv = $this->getPrivacity($val['f_id'], null, true);
+            if ($priv['m']['v'] == true) {
+                $amigos[] = "'{$val['f_id']}'";
+            }
+        }
+        $amigos[] = "'{$this->User->uid}'";
+        $amigos = implode(', ', $amigos);
+        // OBTENEMOS LAS ULTIMAS PUBLICACIONES
+        $query = db_exec([__FILE__, __LINE__], 'query', "SELECT p.*, u.user_id, u.user_name FROM @muro AS p LEFT JOIN @miembros AS u ON p.p_user_pub = u.user_id WHERE p.p_user IN($amigos) AND p.p_user = p.p_user_pub ORDER BY p.p_date DESC LIMIT $start,$limit");
+        return $this->loadsRow($query);
+    }
+
+    /*
+     getWall($count)
+    */
+    public function getWall(int $user_id = 0, int $start = 0)
+    {
+        $type = '';
+        if (isset($_POST['type'])) {
+            $number = (int)$_POST['type'];
+            $type = " AND p.p_type " . ($number === 1 ? '>= 0' : "= $number");
+        }
+        // PUBLICACION
+        $query = db_exec([__FILE__, __LINE__], 'query', "SELECT p.*, u.user_id, u.user_name FROM @muro AS p LEFT JOIN @miembros AS u ON p.p_user_pub = u.user_id WHERE p.p_user = $user_id $type ORDER BY p.pub_id DESC LIMIT $start,10");
+        return $this->loadsRow($query);
+    }
+
+    /*
+          getPubExtras($pud_id, $type)
+    */
+    public function getPubExtras(int $pub_id = 0, string $type = 'likes', int $likes = 0)
+    {
+        switch ($type) {
+            case 'likes':
+                if (empty($likes)) {
+                    return array('link' => 'Me gusta', 'text' => '');
+                }
+                 // VARIABLES
+                 $data['link'] = 'Me gusta';
+                 $i_like = false;
+                 // VEMOS SI ME GUSTA
+                if ($this->User->is_member) {
+                      $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT `like_id` FROM @muro_likes WHERE `user_id` = \'' . $this->User->uid . '\' AND `obj_id` = \'' . (int)$pub_id . '\' AND obj_type = \'1\'');
+                      $i_like = db_exec('num_rows', $query);
+                }
+                   // TEXOS
+                if ($likes == 1) {
+                    if ($i_like) {
+                        $data['link'] = 'Ya no me gusta';
+                        $data['text'] = 'Te gusta esto.';
+                    } else {
+                         $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT u.user_name FROM @muro_likes AS l LEFT JOIN @miembros AS u ON l.user_id = u.user_id  WHERE l.obj_id = \'' . (int)$pub_id . '\' AND l.obj_type = \'1\'');
+                         $u_like = db_exec('fetch_assoc', $query);
+
+                         //
+                         $data['text'] = 'A <a href="' . $this->Core->settings['url'] . '/perfil/' . $u_like['user_name'] . '">' . $u_like['user_name'] . '</a> le gusta esto.';
+                    }
+                } elseif ($likes == 2) {
+                    if ($i_like) {
+                            $data['link'] = 'Ya no me gusta';
+                            //
+                            $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT u.user_name FROM @muro_likes AS l LEFT JOIN @miembros AS u ON l.user_id = u.user_id  WHERE l.user_id != \'' . $this->User->uid . '\' AND l.obj_id = \'' . (int)$pub_id . '\' AND l.obj_type = 1');
+                            $u_like = db_exec('fetch_assoc', $query);
+
+                            //
+                            $data['text'] = 'A <a href="' . $this->Core->settings['url'] . '/perfil/' . $u_like['user_name'] . '">' . $u_like['user_name'] . '</a> y a ti os gusta esto.';
+                    } else {
+                          $data['text'] = 'A <a onclick="muro.show_likes(' . $pub_id . ', \'pub\'); return false;">' . $likes . ' personas</a> les gusta esto.';
+                    }
+                } elseif ($likes > 2) {
+                    if ($i_like) {
+                          $data['link'] = 'Ya no me gusta';
+                          $data['text'] = 'A ti y a <a onclick="muro.show_likes(' . $pub_id . ', \'pub\'); return false;">otras ' . ($likes - 1) . ' personas m&aacute;s</a> les gusta esto.';
+                    } else {
+                          $data['text'] = 'A <a onclick="muro.show_likes(' . $pub_id . ', \'pub\'); return false;">' . $likes . ' personas</a> les gusta esto.';
+                    }
+                }
+                break;
+            case 'comments':
+                 $limit = ($likes > 0) ? "LIMIT {$likes}" : '';
+                 //
+                 $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT c.*, u.user_id, u.user_name FROM @muro_comentarios AS c LEFT JOIN @miembros AS u ON c.c_user = u.user_id WHERE c.pub_id = \'' . (int)$pub_id . '\' ORDER BY c.c_date DESC ' . $limit . '');
+                while ($row = db_exec('fetch_array', $query)) {
+                       $row['c_body'] = $this->Core->parseBadWords($this->Core->parseBBCode($this->Core->setMenciones($row['c_body']), 'smiles'), true);
+                       $row['like'] = 'Me gusta';
+                       $row['avatar'] = $tsZCode->getAvatar($row['user_id'], 'use');
+                       // ME GUSTA?
+                    if ($row['c_likes'] > 0) {
+                      //
+                        $cuery = db_exec([__FILE__, __LINE__], 'query', 'SELECT `like_id` FROM @muro_likes WHERE `user_id` = \'' . $this->User->uid . '\' AND `obj_id` = \'' . $row['cid'] . '\' AND `obj_type` = \'2\'');
+                        $i_like = db_exec('num_rows', $cuery);
+
+                        if ($i_like > 0) {
+                            $row['like'] = 'Ya no me gusta';
+                        }
+                      //
+                    }
+                       //
+
+                       $data[] = $row;
+                }
+
+                 // ORDENAMOS
+                 asort($data);
+                 //
+                break;
+        }
+          //
+          return $data;
+    }
+     /*
+          getStory()
+     */
+    public function getStory($pub_id, $user_id)
+    {
+         // ELEGIMOS
+         $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT p.*, u.user_id, u.user_name FROM @muro AS p LEFT JOIN @miembros AS u ON p.p_user_pub = u.user_id WHERE p.pub_id = \'' . (int)$pub_id . '\' LIMIT 1');
+         $pub = db_exec('fetch_assoc', $query);
+
+         // COMPROBAMOS
+        if (empty($pub['pub_id'])) {
+            return 'La publicaci&oacute;n que has solicitado no existe.';
+        } elseif ($user_id != $pub['p_user']) {
+            return 'La publicaci&oacute;n que has solicitado no pertenece al perfil de <b>' . $this->User->getUserName($user_id) . '</b>.';
+        }
+         // CARGAR LIKES
+        if ($pub['p_likes'] > 0) {
+              $pub['likes'] = $this->getPubExtras($pub['pub_id'], 'likes', $pub['p_likes']);
+        } else {
+            $pub['likes'] = array('link' => 'Me gusta'); // FIX: 08/11/2014
+        }
+         // CARGAR COMENTARIOS
+        if ($pub['p_comments'] > 0) {
+              $pub['comments'] = $this->getPubExtras($pub['pub_id'], 'comments');
+        }
+         $pub['avatar'] = $tsZCode->getAvatar($pub['user_id'], 'use');
+         // EXTRA
+         $pub['hide_more_cm'] = true;
+         // ADJUNTOS
+        if ($pub['p_type'] != 1) {
+              $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT * FROM @muro_adjuntos WHERE pub_id = \'' . (int)$pub_id . '\' LIMIT 1');
+              $adj = db_exec('fetch_assoc', $query);
+
+              $data = array_merge($pub, $adj);
+        } else {
+            $data = $pub;
+        }
+         // RETORNAMOS
+         return $data;
+    }
+     /*
+          getComments()
+     */
+    public function getComments()
+    {
+         //
+         $pid = (int) $_POST['pid'];
+         // EXISTE?
+         $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT `p_user`, `p_comments` FROM @muro WHERE `pub_id` = \'' . $pid . '\' LIMIT 1');
+         $cmts = db_exec('fetch_assoc', $query);
+
+         //
+        if (!empty($cmts)) {
+              $data['data'] = $this->getPubExtras($pid, 'comments');
+              // TOTAL / USER DUEÑO DE LA APLICACION
+              $data['total'] = $cmts['p_comments'];
+              $data['user'] = $cmts['p_user'];
+              //
+              return $data;
+        } else {
+            return '0: La publicaci&oacute;n no existe.';
+        }
+    }
+     /*
+          delete()
+     */
+    public function deletePost()
+    {
+         //
+         $id = $this->Core->setSecure($_POST['id']);
+         $type = ($_POST['type'] == 'pub') ? 'pub' : 'cmt';
+         //
+        switch ($type) {
+            case 'pub':
+                // DATOS -robert
+                $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT `p_user`, `p_user_pub` FROM @muro WHERE `pub_id` = \'' . (int)$id . '\' LIMIT 1');
+                $data = db_exec('fetch_assoc', $query);
+
+                //
+                if (!empty($data['p_user'])) {
+                      // SI ES EL DUEÑO DEL MURO O DE LA PUBLICACION...
+                    if ($data['p_user'] == $this->User->uid || $data['p_user_pub'] == $this->User->uid || $this->User->is_admod || $this->User->permisos['moepm']) {
+                        if (db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro WHERE `pub_id` = \'' . (int)$id . '\'')) {
+                                 // BORRAMOS LOS LIKES DE LA PUBLICACION
+                                db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_likes WHERE `obj_id` = \'' . (int)$id . '\' AND `obj_type` = \'1\'');
+                                 // BORRAMOS LOS LIKES DE TODOS LOS COMENTARIOS
+                                $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT `cid` FROM @muro_comentarios WHERE `pub_id` = \'' . (int)$id . '\'');
+                                 $cmnts = result_array($query);
+
+                                 // IDS A BORRAR
+                            foreach ($cmnts as $key => $val) {
+                                $delete_ids .= $val['cid'] . ', ';
+                            }
+                                 db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_likes WHERE `obj_id` IN (\'' . $delete_ids . '\') AND `obj_type` = \'2\'');
+                                 // BORRAR COMENTARIOS
+                                 db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_comentarios WHERE `pub_id` = \'' . (int)$id . '\'');
+                                 db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_adjuntos WHERE `pub_id` = \'' . (int)$id . '\'');
+                                 //
+                                 return '1: OK';
+                        } else {
+                            return '0: Error';
+                        }
+                    } else {
+                        return '0: Hmmm... &iquest;Haciendo pruebas?';
+                    }
+                } else {
+                    return '0: La publicaci&oacute;n no existe.';
+                }
+                break;
+              // ELIMINAR COMENTARIO
+            case 'cmt':
+                // DATOS
+                $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT c.cid, c.c_user, p.pub_id, p.p_user FROM @muro_comentarios AS c LEFT JOIN @muro AS p ON c.pub_id = p.pub_id WHERE c.cid = \'' . (int)$id . '\' LIMIT 1');
+                $data = db_exec('fetch_assoc', $query);
+
+                //
+                if (!empty($data['cid'])) {
+                     // SI ES EL DUEÑO DEL MURO O DEL COMENTARIO...
+                    if ($data['p_user'] == $this->User->uid || $data['c_user'] == $this->User->uid  || $this->User->is_admod || $this->User->permisos['moecm']) {
+                        if (db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_comentarios WHERE `cid` = \'' . (int)$id . '\'')) {
+                            // UPDATES
+                            db_exec([__FILE__, __LINE__], 'query', 'DELETE FROM @muro_likes WHERE `obj_id` = \'' . (int)$id . '\' AND `obj_type` = \'2\'');
+                            db_exec([__FILE__, __LINE__], 'query', 'UPDATE @muro SET `p_comments` = p_comments - 1 WHERE `pub_id` = \'' . $data['pub_id'] . '\'');
+                            //
+                            return '1: Ok';
+                        }
+                    } else {
+                        return '0: Hmmm... &iquest;Haciendo pruebas?';
+                    }
+                } else {
+                    return '0: El comentario no existe.';
+                }
+                break;
+        }
+    }
+     /*
+          likePost()
+     */
+    public function likePost()
+    {
+        global $tsMonitor, $tsActividad;
+        // ANTI FLOOD
+        $text = $this->Core->antiFlood(false, 'like', 'No te pueden gustar tantas cosas en tan poco tiempo.');
+        if ($text != 1) {
+            return ['status' => 'error', 'text' => $text];
+        }
+        //
+        $id = (int)$_POST['id'];
+        $type = ($_POST['type'] == 'com') ? 2 : 1;
+        $status = 'ok';
+        // EXISTE O NO
+        $sql = ($type == 1) ? "SELECT p_user AS uid FROM @muro WHERE pub_id = {$id}" : "SELECT c_user AS uid FROM @muro_comentarios WHERE cid = {$id}";
+        $exists = db_exec('fetch_assoc', db_exec([__FILE__, __LINE__], 'query', $sql));
+
+        if (empty($exists['uid'])) {
+            return '0: La publicaci&oacute;n ya no existe.';
+        }
+        // CHECAMOS SI YA LE GUSTA ESTO
+        $likes = result_array(db_exec([__FILE__, __LINE__], 'query', "SELECT like_id, user_id FROM @muro_likes WHERE obj_id = $id AND obj_type = $type"));
+        $total = safe_count($likes);
+        // CHECAMOS
+        $i_like = 0;
+        foreach ($likes as $key => $val) {
+            if ($val['user_id'] == $this->User->uid) {
+                $i_like = $val['like_id'];
+            }
+        }
+        // SI AUN NO ME GUSTA
+        if (empty($i_like)) {
+            if (db_exec([__FILE__, __LINE__], 'query', "INSERT INTO @muro_likes (user_id, obj_id, obj_type) VALUES ({$this->User->uid}, $id, $type)")) {
+                // SUMAR LIKE
+                if ($type == 1) {
+                    db_exec([__FILE__, __LINE__], 'query', "UPDATE @muro SET p_likes = p_likes + 1 WHERE pub_id = $id");
+                    $ac_type = ($exists['uid'] == $this->User->uid) ? 0 : 2;
+                } else {
+                    db_exec([__FILE__, __LINE__], 'query', "UPDATE @muro_comentarios SET c_likes = c_likes + 1 WHERE cid = $id");
+                    $ac_type = ($exists['uid'] == $this->User->uid) ? 1 : 3;
+                }
+                // MONITOR
+                $tsMonitor->setNotificacion(14, $exists['uid'], $this->User->uid, $id, $type);
+                // ACTIVIDAD
+                $tsActividad->setActividad(11, $id, $ac_type);
+            } else {
+                $status = 'error';
+            }
+        } else {
+            if (db_exec([__FILE__, __LINE__], 'query', "DELETE FROM @muro_likes WHERE like_id = $i_like")) {
+                // RESTAR LIKE
+                if ($type == 1) {
+                    db_exec([__FILE__, __LINE__], 'query', "UPDATE @muro SET p_likes = p_likes - 1 WHERE pub_id = $id");
+                } else {
+                    db_exec([__FILE__, __LINE__], 'query', "UPDATE @muro_comentarios SET c_likes = c_likes - 1 WHERE cid = $id");
+                }
+            } else {
+                $status = 'error';
+            }
+        }
+        // RESPUESTA
+        if ($type == 1) {
+            $t_likes = empty($i_like) ? ($total + 1) : ($total - 1);
+            //
+            $data = $this->getPubExtras($id, 'likes', $t_likes);
+            $link = $data['link'];
+            $text = $data['text'];
+        } else {
+            $t_likes = empty($i_like) ? ($total + 1) : ($total - 1);
+            $ed_like = ($t_likes > 1) ? 's' : '';
+
+            $link = empty($i_like) ? 'Ya no me gusta' : 'Me gusta';
+            $text = ($t_likes > 0) ? $t_likes . ' persona' . $ed_like : '';
+        }
+        //
+        return ['status' => $status, 'link' => $link, 'text' => $text];
+    }
+     /*
+          showLikes()
+     */
+    public function showLikes()
+    {
+         //
+         $id = intval($_POST['id']);
+         $type = ($_POST['type'] == 'com') ? 2 : 1;
+         //
+         $query = db_exec([__FILE__, __LINE__], 'query', 'SELECT l.user_id, u.user_name FROM @muro_likes AS l LEFT JOIN @miembros AS u ON l.user_id = u.user_id WHERE obj_id = \'' . (int)$id . '\' AND obj_type = \'' . (int)$type . '\'');
+         $data = result_array($query);
+
+         //
+        if (empty($data)) {
+            return array('status' => 0, 'data' => 'La publicaci&oacute;n no existe.');
+        }
+         //
+         return array('status' => 1, 'data' => $data);
+    }
+}

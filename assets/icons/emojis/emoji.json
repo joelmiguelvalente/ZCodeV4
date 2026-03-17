@@ -1,0 +1,1335 @@
+{
+	"1f600": {
+		"code_points": {
+			"base": "1f600",
+			"non_fully_qualified": "1f600",
+			"decimal": "&#128512;"
+		},
+		"name": "grinning face",
+		"shortname": ":grinning:",
+		"category": "people",
+		"emoji_order": "1",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley", "emotion"]
+	},
+	"1f601": {
+		"code_points": {
+			"base": "1f601",
+			"non_fully_qualified": "1f601",
+			"decimal": "&#128513;"
+		},
+		"name": "grinning face with smiling eyes",
+		"shortname": ":grin:",
+		"category": "people",
+		"emoji_order": "2",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "silly", "smiley", "emotion", "good", "selfie"]
+	},
+	"1f602": {
+		"code_points": {
+			"base": "1f602",
+			"non_fully_qualified": "1f602",
+			"decimal": "&#128514;"
+		},
+		"name": "face with tears of joy",
+		"shortname": ":joy:",
+		"category": "people",
+		"emoji_order": "3",
+		"shortname_alternates": [],
+		"ascii": [":')", ":'-)"],
+		"keywords": ["happy", "silly", "smiley", "cry", "laugh", "emotion", "sarcastic"]
+	},
+	"1f923": {
+		"code_points": {
+			"base": "1f923",
+			"non_fully_qualified": "1f923",
+			"decimal": "&#129315;"
+		},
+		"name": "rolling on the floor laughing",
+		"shortname": ":rofl:",
+		"category": "people",
+		"emoji_order": "4",
+		"shortname_alternates": [":rolling_on_the_floor_laughing:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f603": {
+		"code_points": {
+			"base": "1f603",
+			"non_fully_qualified": "1f603",
+			"decimal": "&#128515;"
+		},
+		"name": "smiling face with open mouth",
+		"shortname": ":smiley:",
+		"category": "people",
+		"emoji_order": "5",
+		"shortname_alternates": [],
+		"ascii": [":D", ":-D", "=D"],
+		"keywords": ["happy", "smiley", "emotion", "good"]
+	},
+	"1f604": {
+		"code_points": {
+			"base": "1f604",
+			"non_fully_qualified": "1f604",
+			"decimal": "&#128516;"
+		},
+		"name": "smiling face with open mouth and smiling eyes",
+		"shortname": ":smile:",
+		"category": "people",
+		"emoji_order": "6",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley", "emotion"]
+	},
+	"1f605": {
+		"code_points": {
+			"base": "1f605",
+			"non_fully_qualified": "1f605",
+			"decimal": "&#128517;"
+		},
+		"name": "smiling face with open mouth and cold sweat",
+		"shortname": ":sweat_smile:",
+		"category": "people",
+		"emoji_order": "7",
+		"shortname_alternates": [],
+		"ascii": ["':)", "':-)", "'=)", "':D", "':-D", "'=D"],
+		"keywords": ["smiley", "workout", "sweat", "emotion"]
+	},
+	"1f606": {
+		"code_points": {
+			"base": "1f606",
+			"non_fully_qualified": "1f606",
+			"decimal": "&#128518;"
+		},
+		"name": "smiling face with open mouth and tightly-closed eyes",
+		"shortname": ":laughing:",
+		"category": "people",
+		"emoji_order": "8",
+		"shortname_alternates": [":satisfied:"],
+		"ascii": [">:)", ">;)", ">:-)", ">=)"],
+		"keywords": ["happy", "smiley", "laugh", "emotion"]
+	},
+	"1f609": {
+		"code_points": {
+			"base": "1f609",
+			"non_fully_qualified": "1f609",
+			"decimal": "&#128521;"
+		},
+		"name": "winking face",
+		"shortname": ":wink:",
+		"category": "people",
+		"emoji_order": "9",
+		"shortname_alternates": [],
+		"ascii": [";)", ";-)", "*-)", "*)", ";-]", ";]", ";D", ";^)"],
+		"keywords": ["silly", "smiley", "emotion"]
+	},
+	"1f60a": {
+		"code_points": {
+			"base": "1f60a",
+			"non_fully_qualified": "1f60a",
+			"decimal": "&#128522;"
+		},
+		"name": "smiling face with smiling eyes",
+		"shortname": ":blush:",
+		"category": "people",
+		"emoji_order": "10",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley", "emotion", "good", "beautiful"]
+	},
+	"1f60b": {
+		"code_points": {
+			"base": "1f60b",
+			"non_fully_qualified": "1f60b",
+			"decimal": "&#128523;"
+		},
+		"name": "face savouring delicious food",
+		"shortname": ":yum:",
+		"category": "people",
+		"emoji_order": "11",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "silly", "smiley", "emotion", "sarcastic", "good"]
+	},
+	"1f60e": {
+		"code_points": {
+			"base": "1f60e",
+			"non_fully_qualified": "1f60e",
+			"decimal": "&#128526;"
+		},
+		"name": "smiling face with sunglasses",
+		"shortname": ":sunglasses:",
+		"category": "people",
+		"emoji_order": "12",
+		"shortname_alternates": [],
+		"ascii": ["B-)", "B)", "8)", "8-)", "B-D", "8-D"],
+		"keywords": ["silly", "smiley", "emojione", "glasses", "boys night"]
+	},
+	"1f60d": {
+		"code_points": {
+			"base": "1f60d",
+			"non_fully_qualified": "1f60d",
+			"decimal": "&#128525;"
+		},
+		"name": "smiling face with heart-shaped eyes",
+		"shortname": ":heart_eyes:",
+		"category": "people",
+		"emoji_order": "13",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley", "love", "sex", "heart eyes", "emotion", "beautiful"]
+	},
+	"1f618": {
+		"code_points": {
+			"base": "1f618",
+			"non_fully_qualified": "1f618",
+			"decimal": "&#128536;"
+		},
+		"name": "face throwing a kiss",
+		"shortname": ":kissing_heart:",
+		"category": "people",
+		"emoji_order": "14",
+		"shortname_alternates": [],
+		"ascii": [":*", ":-*", "=*", ":^*"],
+		"keywords": ["smiley", "love", "sexy"]
+	},
+	"1f617": {
+		"code_points": {
+			"base": "1f617",
+			"non_fully_qualified": "1f617",
+			"decimal": "&#128535;"
+		},
+		"name": "kissing face",
+		"shortname": ":kissing:",
+		"category": "people",
+		"emoji_order": "15",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "sexy"]
+	},
+	"1f619": {
+		"code_points": {
+			"base": "1f619",
+			"non_fully_qualified": "1f619",
+			"decimal": "&#128537;"
+		},
+		"name": "kissing face with smiling eyes",
+		"shortname": ":kissing_smiling_eyes:",
+		"category": "people",
+		"emoji_order": "16",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "sexy"]
+	},
+	"1f61a": {
+		"code_points": {
+			"base": "1f61a",
+			"non_fully_qualified": "1f61a",
+			"decimal": "&#128538;"
+		},
+		"name": "kissing face with closed eyes",
+		"shortname": ":kissing_closed_eyes:",
+		"category": "people",
+		"emoji_order": "17",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "sexy"]
+	},
+	"263a": {
+		"code_points": {
+			"base": "263a",
+			"non_fully_qualified": "263a",
+			"fully_qualified": "263a-fe0f",
+			"decimal": "&#9786;"
+		},
+		"name": "white smiling face",
+		"shortname": ":relaxed:",
+		"category": "people",
+		"emoji_order": "18",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley"]
+	},
+	"1f642": {
+		"code_points": {
+			"base": "1f642",
+			"non_fully_qualified": "1f642",
+			"decimal": "&#128578;"
+		},
+		"name": "slightly smiling face",
+		"shortname": ":slight_smile:",
+		"category": "people",
+		"emoji_order": "19",
+		"shortname_alternates": [":slightly_smiling_face:"],
+		"ascii": [":)", ":-)", "=]", "=)", ":]"],
+		"keywords": ["happy", "smiley"]
+	},
+	"1f917": {
+		"code_points": {
+			"base": "1f917",
+			"non_fully_qualified": "1f917",
+			"decimal": "&#129303;"
+		},
+		"name": "hugging face",
+		"shortname": ":hugging:",
+		"category": "people",
+		"emoji_order": "20",
+		"shortname_alternates": [":hugging_face:"],
+		"ascii": [],
+		"keywords": ["smiley", "hug", "thank you"]
+	},
+	"1f914": {
+		"code_points": {
+			"base": "1f914",
+			"non_fully_qualified": "1f914",
+			"decimal": "&#129300;"
+		},
+		"name": "thinking face",
+		"shortname": ":thinking:",
+		"category": "people",
+		"emoji_order": "21",
+		"shortname_alternates": [":thinking_face:"],
+		"ascii": [],
+		"keywords": ["smiley", "thinking", "boys night"]
+	},
+	"1f610": {
+		"code_points": {
+			"base": "1f610",
+			"non_fully_qualified": "1f610",
+			"decimal": "&#128528;"
+		},
+		"name": "neutral face",
+		"shortname": ":neutral_face:",
+		"category": "people",
+		"emoji_order": "22",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["mad", "smiley", "shrug", "neutral", "emotion"]
+	},
+	"1f611": {
+		"code_points": {
+			"base": "1f611",
+			"non_fully_qualified": "1f611",
+			"decimal": "&#128529;"
+		},
+		"name": "expressionless face",
+		"shortname": ":expressionless:",
+		"category": "people",
+		"emoji_order": "23",
+		"shortname_alternates": [],
+		"ascii": ["-_-", "-__-", "-___-"],
+		"keywords": ["mad", "smiley", "neutral", "emotion"]
+	},
+	"1f636": {
+		"code_points": {
+			"base": "1f636",
+			"non_fully_qualified": "1f636",
+			"decimal": "&#128566;"
+		},
+		"name": "face without mouth",
+		"shortname": ":no_mouth:",
+		"category": "people",
+		"emoji_order": "24",
+		"shortname_alternates": [],
+		"ascii": [":-X", ":X", ":-#", ":#", "=X", "=x", ":x", ":-x", "=#"],
+		"keywords": ["mad", "smiley", "neutral", "emotion"]
+	},
+	"1f644": {
+		"code_points": {
+			"base": "1f644",
+			"non_fully_qualified": "1f644",
+			"decimal": "&#128580;"
+		},
+		"name": "face with rolling eyes",
+		"shortname": ":rolling_eyes:",
+		"category": "people",
+		"emoji_order": "25",
+		"shortname_alternates": [":face_with_rolling_eyes:"],
+		"ascii": [],
+		"keywords": ["mad", "smiley", "rolling eyes", "emotion", "sarcastic"]
+	},
+	"1f60f": {
+		"code_points": {
+			"base": "1f60f",
+			"non_fully_qualified": "1f60f",
+			"decimal": "&#128527;"
+		},
+		"name": "smirking face",
+		"shortname": ":smirk:",
+		"category": "people",
+		"emoji_order": "26",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["silly", "smiley", "sexy", "sarcastic"]
+	},
+	"1f623": {
+		"code_points": {
+			"base": "1f623",
+			"non_fully_qualified": "1f623",
+			"decimal": "&#128547;"
+		},
+		"name": "persevering face",
+		"shortname": ":persevere:",
+		"category": "people",
+		"emoji_order": "27",
+		"shortname_alternates": [],
+		"ascii": [">.<"],
+		"keywords": ["sad", "smiley", "angry", "emotion"]
+	},
+	"1f625": {
+		"code_points": {
+			"base": "1f625",
+			"non_fully_qualified": "1f625",
+			"decimal": "&#128549;"
+		},
+		"name": "disappointed but relieved face",
+		"shortname": ":disappointed_relieved:",
+		"category": "people",
+		"emoji_order": "28",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "stressed", "sweat", "cry", "emotion"]
+	},
+	"1f62e": {
+		"code_points": {
+			"base": "1f62e",
+			"non_fully_qualified": "1f62e",
+			"decimal": "&#128558;"
+		},
+		"name": "face with open mouth",
+		"shortname": ":open_mouth:",
+		"category": "people",
+		"emoji_order": "29",
+		"shortname_alternates": [],
+		"ascii": [":-O", ":O", ":-o", ":o", "O_O", ">:O"],
+		"keywords": ["smiley", "surprised", "wow", "emotion"]
+	},
+	"1f910": {
+		"code_points": {
+			"base": "1f910",
+			"non_fully_qualified": "1f910",
+			"decimal": "&#129296;"
+		},
+		"name": "zipper-mouth face",
+		"shortname": ":zipper_mouth:",
+		"category": "people",
+		"emoji_order": "30",
+		"shortname_alternates": [":zipper_mouth_face:"],
+		"ascii": [],
+		"keywords": ["mad", "smiley"]
+	},
+	"1f62f": {
+		"code_points": {
+			"base": "1f62f",
+			"non_fully_qualified": "1f62f",
+			"decimal": "&#128559;"
+		},
+		"name": "hushed face",
+		"shortname": ":hushed:",
+		"category": "people",
+		"emoji_order": "31",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "surprised", "wow"]
+	},
+	"1f62a": {
+		"code_points": {
+			"base": "1f62a",
+			"non_fully_qualified": "1f62a",
+			"decimal": "&#128554;"
+		},
+		"name": "sleepy face",
+		"shortname": ":sleepy:",
+		"category": "people",
+		"emoji_order": "32",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "sick", "emotion"]
+	},
+	"1f62b": {
+		"code_points": {
+			"base": "1f62b",
+			"non_fully_qualified": "1f62b",
+			"decimal": "&#128555;"
+		},
+		"name": "tired face",
+		"shortname": ":tired_face:",
+		"category": "people",
+		"emoji_order": "33",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "tired", "emotion"]
+	},
+	"1f634": {
+		"code_points": {
+			"base": "1f634",
+			"non_fully_qualified": "1f634",
+			"decimal": "&#128564;"
+		},
+		"name": "sleeping face",
+		"shortname": ":sleeping:",
+		"category": "people",
+		"emoji_order": "34",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "tired", "emotion", "goodnight"]
+	},
+	"1f60c": {
+		"code_points": {
+			"base": "1f60c",
+			"non_fully_qualified": "1f60c",
+			"decimal": "&#128524;"
+		},
+		"name": "relieved face",
+		"shortname": ":relieved:",
+		"category": "people",
+		"emoji_order": "35",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "emotion"]
+	},
+	"1f913": {
+		"code_points": {
+			"base": "1f913",
+			"non_fully_qualified": "1f913",
+			"decimal": "&#129299;"
+		},
+		"name": "nerd face",
+		"shortname": ":nerd:",
+		"category": "people",
+		"emoji_order": "36",
+		"shortname_alternates": [":nerd_face:"],
+		"ascii": [],
+		"keywords": ["smiley", "glasses"]
+	},
+	"1f61b": {
+		"code_points": {
+			"base": "1f61b",
+			"non_fully_qualified": "1f61b",
+			"decimal": "&#128539;"
+		},
+		"name": "face with stuck-out tongue",
+		"shortname": ":stuck_out_tongue:",
+		"category": "people",
+		"emoji_order": "37",
+		"shortname_alternates": [],
+		"ascii": [":P", ":-P", "=P", ":-p", ":p", "=p", ":-\u00de", ":\u00de", ":\u00fe", ":-\u00fe", ":-b", ":b", "d:"],
+		"keywords": ["smiley", "sex", "emotion"]
+	},
+	"1f61c": {
+		"code_points": {
+			"base": "1f61c",
+			"non_fully_qualified": "1f61c",
+			"decimal": "&#128540;"
+		},
+		"name": "face with stuck-out tongue and winking eye",
+		"shortname": ":stuck_out_tongue_winking_eye:",
+		"category": "people",
+		"emoji_order": "38",
+		"shortname_alternates": [],
+		"ascii": [">:P", "X-P", "x-p"],
+		"keywords": ["happy", "smiley", "emotion", "parties"]
+	},
+	"1f61d": {
+		"code_points": {
+			"base": "1f61d",
+			"non_fully_qualified": "1f61d",
+			"decimal": "&#128541;"
+		},
+		"name": "face with stuck-out tongue and tightly-closed eyes",
+		"shortname": ":stuck_out_tongue_closed_eyes:",
+		"category": "people",
+		"emoji_order": "39",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "smiley", "emotion"]
+	},
+	"1f924": {
+		"code_points": {
+			"base": "1f924",
+			"non_fully_qualified": "1f924",
+			"decimal": "&#129316;"
+		},
+		"name": "drooling face",
+		"shortname": ":drooling_face:",
+		"category": "people",
+		"emoji_order": "40",
+		"shortname_alternates": [":drool:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f612": {
+		"code_points": {
+			"base": "1f612",
+			"non_fully_qualified": "1f612",
+			"decimal": "&#128530;"
+		},
+		"name": "unamused face",
+		"shortname": ":unamused:",
+		"category": "people",
+		"emoji_order": "41",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "mad", "smiley", "tired", "emotion"]
+	},
+	"1f613": {
+		"code_points": {
+			"base": "1f613",
+			"non_fully_qualified": "1f613",
+			"decimal": "&#128531;"
+		},
+		"name": "face with cold sweat",
+		"shortname": ":sweat:",
+		"category": "people",
+		"emoji_order": "42",
+		"shortname_alternates": [],
+		"ascii": ["':(", "':-(", "'=("],
+		"keywords": ["sad", "smiley", "stressed", "sweat", "emotion"]
+	},
+	"1f614": {
+		"code_points": {
+			"base": "1f614",
+			"non_fully_qualified": "1f614",
+			"decimal": "&#128532;"
+		},
+		"name": "pensive face",
+		"shortname": ":pensive:",
+		"category": "people",
+		"emoji_order": "43",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "emotion", "rip"]
+	},
+	"1f615": {
+		"code_points": {
+			"base": "1f615",
+			"non_fully_qualified": "1f615",
+			"decimal": "&#128533;"
+		},
+		"name": "confused face",
+		"shortname": ":confused:",
+		"category": "people",
+		"emoji_order": "44",
+		"shortname_alternates": [],
+		"ascii": [">:\\", ">:\/", ":-\/", ":-.", ":\/", ":\\", "=\/", "=\\", ":L", "=L"],
+		"keywords": ["smiley", "surprised", "emotion"]
+	},
+	"1f643": {
+		"code_points": {
+			"base": "1f643",
+			"non_fully_qualified": "1f643",
+			"decimal": "&#128579;"
+		},
+		"name": "upside-down face",
+		"shortname": ":upside_down:",
+		"category": "people",
+		"emoji_order": "45",
+		"shortname_alternates": [":upside_down_face:"],
+		"ascii": [],
+		"keywords": ["silly", "smiley", "sarcastic"]
+	},
+	"1f911": {
+		"code_points": {
+			"base": "1f911",
+			"non_fully_qualified": "1f911",
+			"decimal": "&#129297;"
+		},
+		"name": "money-mouth face",
+		"shortname": ":money_mouth:",
+		"category": "people",
+		"emoji_order": "46",
+		"shortname_alternates": [":money_mouth_face:"],
+		"ascii": [],
+		"keywords": ["smiley", "win", "money", "emotion", "boys night"]
+	},
+	"1f632": {
+		"code_points": {
+			"base": "1f632",
+			"non_fully_qualified": "1f632",
+			"decimal": "&#128562;"
+		},
+		"name": "astonished face",
+		"shortname": ":astonished:",
+		"category": "people",
+		"emoji_order": "47",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "surprised", "wow", "emotion", "omg"]
+	},
+	"2639": {
+		"code_points": {
+			"base": "2639",
+			"non_fully_qualified": "2639",
+			"fully_qualified": "2639-fe0f",
+			"decimal": "&#9785;"
+		},
+		"name": "white frowning face",
+		"shortname": ":frowning2:",
+		"category": "people",
+		"emoji_order": "48",
+		"shortname_alternates": [":white_frowning_face:"],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "emotion"]
+	},
+	"1f641": {
+		"code_points": {
+			"base": "1f641",
+			"non_fully_qualified": "1f641",
+			"decimal": "&#128577;"
+		},
+		"name": "slightly frowning face",
+		"shortname": ":slight_frown:",
+		"category": "people",
+		"emoji_order": "49",
+		"shortname_alternates": [":slightly_frowning_face:"],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "emotion"]
+	},
+	"1f616": {
+		"code_points": {
+			"base": "1f616",
+			"non_fully_qualified": "1f616",
+			"decimal": "&#128534;"
+		},
+		"name": "confounded face",
+		"shortname": ":confounded:",
+		"category": "people",
+		"emoji_order": "50",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "angry", "emotion"]
+	},
+	"1f61e": {
+		"code_points": {
+			"base": "1f61e",
+			"non_fully_qualified": "1f61e",
+			"decimal": "&#128542;"
+		},
+		"name": "disappointed face",
+		"shortname": ":disappointed:",
+		"category": "people",
+		"emoji_order": "51",
+		"shortname_alternates": [],
+		"ascii": [">:[", ":-(", ":(", ":-[", ":[", "=("],
+		"keywords": ["sad", "smiley", "tired", "emotion"]
+	},
+	"1f61f": {
+		"code_points": {
+			"base": "1f61f",
+			"non_fully_qualified": "1f61f",
+			"decimal": "&#128543;"
+		},
+		"name": "worried face",
+		"shortname": ":worried:",
+		"category": "people",
+		"emoji_order": "52",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "emotion"]
+	},
+	"1f624": {
+		"code_points": {
+			"base": "1f624",
+			"non_fully_qualified": "1f624",
+			"decimal": "&#128548;"
+		},
+		"name": "face with look of triumph",
+		"shortname": ":triumph:",
+		"category": "people",
+		"emoji_order": "53",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["mad", "smiley", "angry", "emotion", "steam"]
+	},
+	"1f622": {
+		"code_points": {
+			"base": "1f622",
+			"non_fully_qualified": "1f622",
+			"decimal": "&#128546;"
+		},
+		"name": "crying face",
+		"shortname": ":cry:",
+		"category": "people",
+		"emoji_order": "54",
+		"shortname_alternates": [],
+		"ascii": [":'(", ":'-(", ";(", ";-("],
+		"keywords": ["sad", "smiley", "cry", "emotion", "rip", "heartbreak"]
+	},
+	"1f62d": {
+		"code_points": {
+			"base": "1f62d",
+			"non_fully_qualified": "1f62d",
+			"decimal": "&#128557;"
+		},
+		"name": "loudly crying face",
+		"shortname": ":sob:",
+		"category": "people",
+		"emoji_order": "55",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "cry", "emotion", "heartbreak"]
+	},
+	"1f626": {
+		"code_points": {
+			"base": "1f626",
+			"non_fully_qualified": "1f626",
+			"decimal": "&#128550;"
+		},
+		"name": "frowning face with open mouth",
+		"shortname": ":frowning:",
+		"category": "people",
+		"emoji_order": "56",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "surprised", "emotion"]
+	},
+	"1f627": {
+		"code_points": {
+			"base": "1f627",
+			"non_fully_qualified": "1f627",
+			"decimal": "&#128551;"
+		},
+		"name": "anguished face",
+		"shortname": ":anguished:",
+		"category": "people",
+		"emoji_order": "57",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "surprised", "emotion"]
+	},
+	"1f628": {
+		"code_points": {
+			"base": "1f628",
+			"non_fully_qualified": "1f628",
+			"decimal": "&#128552;"
+		},
+		"name": "fearful face",
+		"shortname": ":fearful:",
+		"category": "people",
+		"emoji_order": "58",
+		"shortname_alternates": [],
+		"ascii": ["D:"],
+		"keywords": ["smiley", "surprised", "emotion"]
+	},
+	"1f629": {
+		"code_points": {
+			"base": "1f629",
+			"non_fully_qualified": "1f629",
+			"decimal": "&#128553;"
+		},
+		"name": "weary face",
+		"shortname": ":weary:",
+		"category": "people",
+		"emoji_order": "59",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["sad", "smiley", "tired", "stressed", "emotion"]
+	},
+	"1f62c": {
+		"code_points": {
+			"base": "1f62c",
+			"non_fully_qualified": "1f62c",
+			"decimal": "&#128556;"
+		},
+		"name": "grimacing face",
+		"shortname": ":grimacing:",
+		"category": "people",
+		"emoji_order": "60",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["silly", "smiley", "emotion", "selfie"]
+	},
+	"1f630": {
+		"code_points": {
+			"base": "1f630",
+			"non_fully_qualified": "1f630",
+			"decimal": "&#128560;"
+		},
+		"name": "face with open mouth and cold sweat",
+		"shortname": ":cold_sweat:",
+		"category": "people",
+		"emoji_order": "61",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "sweat", "emotion"]
+	},
+	"1f631": {
+		"code_points": {
+			"base": "1f631",
+			"non_fully_qualified": "1f631",
+			"decimal": "&#128561;"
+		},
+		"name": "face screaming in fear",
+		"shortname": ":scream:",
+		"category": "people",
+		"emoji_order": "62",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "surprised", "wow", "emotion", "omg"]
+	},
+	"1f633": {
+		"code_points": {
+			"base": "1f633",
+			"non_fully_qualified": "1f633",
+			"decimal": "&#128563;"
+		},
+		"name": "flushed face",
+		"shortname": ":flushed:",
+		"category": "people",
+		"emoji_order": "63",
+		"shortname_alternates": [],
+		"ascii": [":$", "=$"],
+		"keywords": ["smiley", "emotion", "omg"]
+	},
+	"1f635": {
+		"code_points": {
+			"base": "1f635",
+			"non_fully_qualified": "1f635",
+			"decimal": "&#128565;"
+		},
+		"name": "dizzy face",
+		"shortname": ":dizzy_face:",
+		"category": "people",
+		"emoji_order": "64",
+		"shortname_alternates": [],
+		"ascii": ["#-)", "#)", "%-)", "%)", "X)", "X-)"],
+		"keywords": ["smiley", "surprised", "dead", "wow", "emotion", "omg"]
+	},
+	"1f621": {
+		"code_points": {
+			"base": "1f621",
+			"non_fully_qualified": "1f621",
+			"decimal": "&#128545;"
+		},
+		"name": "pouting face",
+		"shortname": ":rage:",
+		"category": "people",
+		"emoji_order": "65",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["mad", "smiley", "angry", "emotion"]
+	},
+	"1f620": {
+		"code_points": {
+			"base": "1f620",
+			"non_fully_qualified": "1f620",
+			"decimal": "&#128544;"
+		},
+		"name": "angry face",
+		"shortname": ":angry:",
+		"category": "people",
+		"emoji_order": "66",
+		"shortname_alternates": [],
+		"ascii": [">:(", ">:-(", ":@"],
+		"keywords": ["mad", "smiley", "emotion"]
+	},
+	"1f607": {
+		"code_points": {
+			"base": "1f607",
+			"non_fully_qualified": "1f607",
+			"decimal": "&#128519;"
+		},
+		"name": "smiling face with halo",
+		"shortname": ":innocent:",
+		"category": "people",
+		"emoji_order": "67",
+		"shortname_alternates": [],
+		"ascii": ["O:-)", "0:-3", "0:3", "0:-)", "0:)", "0;^)", "O:)", "O;-)", "O=)", "0;-)", "O:-3", "O:3"],
+		"keywords": ["smiley", "emotion"]
+	},
+	"1f920": {
+		"code_points": {
+			"base": "1f920",
+			"non_fully_qualified": "1f920",
+			"decimal": "&#129312;"
+		},
+		"name": "face with cowboy hat",
+		"shortname": ":cowboy:",
+		"category": "people",
+		"emoji_order": "68",
+		"shortname_alternates": [":face_with_cowboy_hat:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f921": {
+		"code_points": {
+			"base": "1f921",
+			"non_fully_qualified": "1f921",
+			"decimal": "&#129313;"
+		},
+		"name": "clown face",
+		"shortname": ":clown:",
+		"category": "people",
+		"emoji_order": "69",
+		"shortname_alternates": [":clown_face:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f925": {
+		"code_points": {
+			"base": "1f925",
+			"non_fully_qualified": "1f925",
+			"decimal": "&#129317;"
+		},
+		"name": "lying face",
+		"shortname": ":lying_face:",
+		"category": "people",
+		"emoji_order": "70",
+		"shortname_alternates": [":liar:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f637": {
+		"code_points": {
+			"base": "1f637",
+			"non_fully_qualified": "1f637",
+			"decimal": "&#128567;"
+		},
+		"name": "face with medical mask",
+		"shortname": ":mask:",
+		"category": "people",
+		"emoji_order": "71",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "dead", "health", "sick"]
+	},
+	"1f912": {
+		"code_points": {
+			"base": "1f912",
+			"non_fully_qualified": "1f912",
+			"decimal": "&#129298;"
+		},
+		"name": "face with thermometer",
+		"shortname": ":thermometer_face:",
+		"category": "people",
+		"emoji_order": "72",
+		"shortname_alternates": [":face_with_thermometer:"],
+		"ascii": [],
+		"keywords": ["smiley", "health", "sick", "emotion"]
+	},
+	"1f915": {
+		"code_points": {
+			"base": "1f915",
+			"non_fully_qualified": "1f915",
+			"decimal": "&#129301;"
+		},
+		"name": "face with head-bandage",
+		"shortname": ":head_bandage:",
+		"category": "people",
+		"emoji_order": "73",
+		"shortname_alternates": [":face_with_head_bandage:"],
+		"ascii": [],
+		"keywords": ["smiley", "health", "sick", "emotion"]
+	},
+	"1f922": {
+		"code_points": {
+			"base": "1f922",
+			"non_fully_qualified": "1f922",
+			"decimal": "&#129314;"
+		},
+		"name": "nauseated face",
+		"shortname": ":nauseated_face:",
+		"category": "people",
+		"emoji_order": "74",
+		"shortname_alternates": [":sick:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f927": {
+		"code_points": {
+			"base": "1f927",
+			"non_fully_qualified": "1f927",
+			"decimal": "&#129319;"
+		},
+		"name": "sneezing face",
+		"shortname": ":sneezing_face:",
+		"category": "people",
+		"emoji_order": "75",
+		"shortname_alternates": [":sneeze:"],
+		"ascii": [],
+		"keywords": []
+	},
+	"1f608": {
+		"code_points": {
+			"base": "1f608",
+			"non_fully_qualified": "1f608",
+			"decimal": "&#128520;"
+		},
+		"name": "smiling face with horns",
+		"shortname": ":smiling_imp:",
+		"category": "people",
+		"emoji_order": "76",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["silly", "smiley", "angry", "monster", "devil", "boys night"]
+	},
+	"1f47f": {
+		"code_points": {
+			"base": "1f47f",
+			"non_fully_qualified": "1f47f",
+			"decimal": "&#128127;"
+		},
+		"name": "imp",
+		"shortname": ":imp:",
+		"category": "people",
+		"emoji_order": "77",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["smiley", "monster", "devil", "wth"]
+	},
+	"1f479": {
+		"code_points": {
+			"base": "1f479",
+			"non_fully_qualified": "1f479",
+			"decimal": "&#128121;"
+		},
+		"name": "japanese ogre",
+		"shortname": ":japanese_ogre:",
+		"category": "people",
+		"emoji_order": "78",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["monster"]
+	},
+	"1f47a": {
+		"code_points": {
+			"base": "1f47a",
+			"non_fully_qualified": "1f47a",
+			"decimal": "&#128122;"
+		},
+		"name": "japanese goblin",
+		"shortname": ":japanese_goblin:",
+		"category": "people",
+		"emoji_order": "79",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["angry", "monster"]
+	},
+	"1f480": {
+		"code_points": {
+			"base": "1f480",
+			"non_fully_qualified": "1f480",
+			"decimal": "&#128128;"
+		},
+		"name": "skull",
+		"shortname": ":skull:",
+		"category": "people",
+		"emoji_order": "80",
+		"shortname_alternates": [":skeleton:"],
+		"ascii": [],
+		"keywords": ["dead", "halloween", "skull"]
+	},
+	"2620": {
+		"code_points": {
+			"base": "2620",
+			"non_fully_qualified": "2620",
+			"fully_qualified": "2620-fe0f",
+			"decimal": "&#9760;"
+		},
+		"name": "skull and crossbones",
+		"shortname": ":skull_crossbones:",
+		"category": "objects",
+		"emoji_order": "81",
+		"shortname_alternates": [":skull_and_crossbones:"],
+		"ascii": [],
+		"keywords": ["symbol", "dead", "skull"]
+	},
+	"1f47b": {
+		"code_points": {
+			"base": "1f47b",
+			"non_fully_qualified": "1f47b",
+			"decimal": "&#128123;"
+		},
+		"name": "ghost",
+		"shortname": ":ghost:",
+		"category": "people",
+		"emoji_order": "82",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["holidays", "halloween", "monster"]
+	},
+	"1f47d": {
+		"code_points": {
+			"base": "1f47d",
+			"non_fully_qualified": "1f47d",
+			"decimal": "&#128125;"
+		},
+		"name": "extraterrestrial alien",
+		"shortname": ":alien:",
+		"category": "people",
+		"emoji_order": "83",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["space", "monster", "alien", "scientology"]
+	},
+	"1f47e": {
+		"code_points": {
+			"base": "1f47e",
+			"non_fully_qualified": "1f47e",
+			"decimal": "&#128126;"
+		},
+		"name": "alien monster",
+		"shortname": ":space_invader:",
+		"category": "activity",
+		"emoji_order": "84",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["monster", "alien"]
+	},
+	"1f916": {
+		"code_points": {
+			"base": "1f916",
+			"non_fully_qualified": "1f916",
+			"decimal": "&#129302;"
+		},
+		"name": "robot face",
+		"shortname": ":robot:",
+		"category": "people",
+		"emoji_order": "85",
+		"shortname_alternates": [":robot_face:"],
+		"ascii": [],
+		"keywords": ["monster", "robot"]
+	},
+	"1f4a9": {
+		"code_points": {
+			"base": "1f4a9",
+			"non_fully_qualified": "1f4a9",
+			"decimal": "&#128169;"
+		},
+		"name": "pile of poo",
+		"shortname": ":poop:",
+		"category": "people",
+		"emoji_order": "86",
+		"shortname_alternates": [":shit:", ":hankey:", ":poo:"],
+		"ascii": [],
+		"keywords": ["bathroom", "shit", "sol", "diarrhea"]
+	},
+	"1f63a": {
+		"code_points": {
+			"base": "1f63a",
+			"non_fully_qualified": "1f63a",
+			"decimal": "&#128570;"
+		},
+		"name": "smiling cat face with open mouth",
+		"shortname": ":smiley_cat:",
+		"category": "people",
+		"emoji_order": "87",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "cat", "animal"]
+	},
+	"1f638": {
+		"code_points": {
+			"base": "1f638",
+			"non_fully_qualified": "1f638",
+			"decimal": "&#128568;"
+		},
+		"name": "grinning cat face with smiling eyes",
+		"shortname": ":smile_cat:",
+		"category": "people",
+		"emoji_order": "88",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "cat", "animal"]
+	},
+	"1f639": {
+		"code_points": {
+			"base": "1f639",
+			"non_fully_qualified": "1f639",
+			"decimal": "&#128569;"
+		},
+		"name": "cat face with tears of joy",
+		"shortname": ":joy_cat:",
+		"category": "people",
+		"emoji_order": "89",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["happy", "silly", "cry", "laugh", "cat", "animal", "sarcastic"]
+	},
+	"1f63b": {
+		"code_points": {
+			"base": "1f63b",
+			"non_fully_qualified": "1f63b",
+			"decimal": "&#128571;"
+		},
+		"name": "smiling cat face with heart-shaped eyes",
+		"shortname": ":heart_eyes_cat:",
+		"category": "people",
+		"emoji_order": "90",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["heart eyes", "cat", "animal", "beautiful"]
+	},
+	"1f63c": {
+		"code_points": {
+			"base": "1f63c",
+			"non_fully_qualified": "1f63c",
+			"decimal": "&#128572;"
+		},
+		"name": "cat face with wry smile",
+		"shortname": ":smirk_cat:",
+		"category": "people",
+		"emoji_order": "91",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["cat", "animal"]
+	},
+	"1f63d": {
+		"code_points": {
+			"base": "1f63d",
+			"non_fully_qualified": "1f63d",
+			"decimal": "&#128573;"
+		},
+		"name": "kissing cat face with closed eyes",
+		"shortname": ":kissing_cat:",
+		"category": "people",
+		"emoji_order": "92",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["cat", "animal"]
+	},
+	"1f640": {
+		"code_points": {
+			"base": "1f640",
+			"non_fully_qualified": "1f640",
+			"decimal": "&#128576;"
+		},
+		"name": "weary cat face",
+		"shortname": ":scream_cat:",
+		"category": "people",
+		"emoji_order": "93",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["cat", "animal"]
+	},
+	"1f63f": {
+		"code_points": {
+			"base": "1f63f",
+			"non_fully_qualified": "1f63f",
+			"decimal": "&#128575;"
+		},
+		"name": "crying cat face",
+		"shortname": ":crying_cat_face:",
+		"category": "people",
+		"emoji_order": "94",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["cry", "cat", "animal"]
+	},
+	"1f63e": {
+		"code_points": {
+			"base": "1f63e",
+			"non_fully_qualified": "1f63e",
+			"decimal": "&#128574;"
+		},
+		"name": "pouting cat face",
+		"shortname": ":pouting_cat:",
+		"category": "people",
+		"emoji_order": "95",
+		"shortname_alternates": [],
+		"ascii": [],
+		"keywords": ["cat", "animal"]
+	}
+}

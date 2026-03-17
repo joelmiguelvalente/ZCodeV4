@@ -1,0 +1,150 @@
+#IWantSeePassword {
+	--size: 2rem;
+}
+
+main {
+	background-color: var(--body-bg);
+	border-radius: var(--border-radius);
+	width: 700px;
+}
+
+.panel-divider {
+	display: grid;
+	grid-template-columns: 250px 450px;
+}
+.panel {
+	overflow: hidden;
+	position: relative;
+}
+.panel-background {
+	width: 120%;
+	height: 120%;
+	display: block;
+	background: var(--image) no-repeat center center / cover;
+	border-radius: var(--border-radius) 0 0 var(--border-radius);
+	filter: blur(4px);
+	opacity: .2;
+}
+.panel img {
+	position: relative;
+}
+span[data-toggle] {
+	font-size: 0.75rem;
+	cursor: pointer;
+}
+
+.form-radio-icon {
+	--nochecked: #ACACAC;
+	--checked: var(--main-bg);
+	margin: 1rem 0;
+	display: block;
+}
+.form-radio-icon label {
+	display: inline-block;
+	width: 100px;
+	padding: 1rem 0;
+}
+.form-radio-icon label input {
+	cursor: pointer;
+}
+.form-radio-icon label span {
+	color: var(--nochecked);
+}
+.form-radio-icon label input:checked + span * {
+	color: var(--checked);
+}
+#password-strength {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: .325rem;
+	font-size: 0.675rem;
+	font-weight: 600;
+	padding: .325rem 0;
+	position: absolute;
+	right: 0;
+	font-style: italic;
+}
+#password-strength span {
+	display: block;
+	width: .75rem;
+	height: .75rem;
+	border-radius: 10em;
+}
+#password-strength em {
+	display: block;
+	height: 1rem;
+	line-height: 1rem;
+}
+
+@media (width <= 768px) {
+	main {
+		width: 90%;
+	}
+	.panel-divider {
+		display: block;
+	}
+	.panel {
+		display: none!important;
+	}
+}
+
+.notify {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 1rem;
+	z-index: 999;
+}
+.notify-box {
+	--toast-bg: var(--body-bg);
+	--toast-color: var(--body-color);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	padding: 1rem;
+	background: var(--toast-bg);
+	color: var(--toast-color);
+	position: relative;
+	width: 450px;
+}
+.notify-box.notify-box--default {
+	--toast-bg: #e8e8e8;
+	--toast-color: #2a2828;
+}
+[data-theme="dark"] .notify-box.notify-box--default {
+	--toast-bg: #2a2828;
+	--toast-color: #e8e8e8;
+}
+.notify-box.notify-box--success {
+	--toast-bg: var(--success-bg);
+	--toast-color: var(--success-color);
+}
+.notify-box.notify-box--danger {
+	--toast-bg: var(--danger-bg);
+	--toast-color: var(--danger-color);
+}
+.notify-box.notify-box--warning {
+	--toast-bg: var(--warning-bg);
+	--toast-color: var(--warning-color);
+}
+.notify--title {
+	font-size: 1.125rem;
+	font-weight: 700;
+}
+.notify--body {
+	font-weight: 400;
+	font-size: 0.875rem;
+}
+.notify--close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-weight: 700;
+	font-size: 1rem;
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: center;
+}

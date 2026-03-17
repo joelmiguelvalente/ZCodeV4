@@ -1,0 +1,85 @@
+@font-face {
+	font-family: 'Inter';
+	src: url('../fonts/Inter.ttf') format('truetype'),
+		url('../fonts/Inter.woff2') format('woff2'),
+		url('../fonts/Inter.woff') format('woff');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'DIN Pro Cond';
+	src: url('../fonts/DINPro-CondensedRegular.ttf') format('truetype'),
+		url('../fonts/DINPro-CondensedRegular.woff2') format('woff2'),
+		url('../fonts/DINPro-CondensedRegular.woff') format('woff');
+	font-display: swap;
+	font-weight: normal; 
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Pixellari';
+	src: url('../fonts/Pixellari.ttf') format('truetype');
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Neomatrix Code';
+	src: url('../fonts/NeomatrixCode.ttf') format('truetype');
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Roboto Mono';
+	src: url('../fonts/RobotoMono.ttf') format('truetype');
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Ubuntu Mono';
+	src: url('../fonts/UbuntuMono.ttf') format('truetype');
+	font-style: normal;
+	font-display: swap;
+}
+:root {
+	--sans-serif: system-ui, -apple-system, "Segoe UI", Inter, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+[data-font-family="arial"] {
+	--setting-font-family: Arial, Helvetica, sans-serif;
+}
+[data-font-family="century"] {
+	--setting-font-family: 'Century Gothic';
+}
+[data-font-family="dinpro"] {
+	--setting-font-family: 'DIN Pro Cond';
+}
+[data-font-family="inter"] {
+	--setting-font-family: Inter;
+}
+[data-font-family="pixellari"] {
+	--setting-font-family: Pixellari;
+}
+[data-font-family="roboto"] {
+	--setting-font-family: 'Roboto Mono';
+}
+[data-font-family="neomatrix"] {
+	--setting-font-family: 'Neomatrix Code';
+}
+[data-font-family="ubuntu"] {
+	--setting-font-family: 'Ubuntu Mono';
+}
+[data-font-family="system"] {
+	--setting-font-family: system-ui, sans-serif;
+}
+[data-font-family="tema"] {
+	--setting-font-family: var(--sans-serif);
+}
+.font-arial { font-family: Arial, Helvetica, sans-serif; }
+.font-century { font-family: 'Century gothic'; }
+.font-dinpro { font-family: 'DINPro-Medium'; }
+.font-inter { font-family: Inter; }
+.font-monospace {font-family: var(--font-monospace) !important;}
+.font-pixellari { font-family: Pixellari; }
+.font-roboto { font-family: 'Roboto'; }
+.font-system { font-family: system-ui, sans-serif; }
+.font-tema { font-family: var(--sans-serif); }
