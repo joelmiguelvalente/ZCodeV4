@@ -62,10 +62,13 @@ composer install
 
 ```bash
 # Verificar estilo de código PSR-12
-composer phpcs
+composer zcode:check
 
-# Corregir estilo automáticamente
-composer phpcs:fix
+# Verificar estilo de código PSR-12 con reporte detallado y lo guarda en reporte.txt
+composer zcode:check:verbose
+
+# Corregir errores de estilo automáticamente
+composer zcode:fix
 ```
 
 ---

@@ -30,7 +30,7 @@ endif;
 // CODIGO
 switch ($action) {
     case 'github-api':
-      $branch = rawurlencode(trim($_GET['branch'] ?? 'main'));
+      $branch = rawurlencode(trim($_GET['branch'] ?? 'dev'));
       $url    = "https://api.github.com/repos/joelmiguelvalente/ZCodeV4/commits/{$branch}";
 
       $context = stream_context_create([
