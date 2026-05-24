@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 declare(strict_types=1);
@@ -38,8 +38,8 @@ class Avatar
         $this->repo = $repo;
 
         $this->source = [
-        'avatar'   => TS_AVATAR,
-        'avatares' => TS_AVATARES
+            'avatar'   => TS_AVATAR,
+            'avatares' => TS_AVATARES
         ];
     }
 
