@@ -22,5 +22,8 @@ $smarty->templateError = '404.html';
 
 $smarty->setTheme(TS_TEMA);
 $smarty->setPage($tsPage);
+//
+# $smarty->setDebugging(true);
+# $smarty->setErrorReporting(E_ALL);
 
-$smarty->load($tsPage);
+$smarty->load($tsPage, (!isset($useExtension) ? true : $useExtension));
