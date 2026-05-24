@@ -39,7 +39,7 @@ if (file_exists(dirname(__DIR__, 3) . '/.env')) {
 }
 
 $config = [
-    'driver'        => 'mysql',
+    'driver'    => 'mysql',
     'hostname'  => $_ENV['DB_HOST'],
     'database'  => $_ENV['DB_NAME'],
     'username'  => $_ENV['DB_USER'],
@@ -74,7 +74,7 @@ $params = http_build_query([
 ]);
 
 $handle = fopen(ABSPATH . '/.lock', "w");
-fwrite($handle, $_ENV['APP_ID']);
+fwrite($handle, "Sistema instalado correctamente: " . date('d.m.Y'));
 fclose($handle);
 
 // Acción del formulario

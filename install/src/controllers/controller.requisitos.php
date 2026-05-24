@@ -24,14 +24,14 @@ $message = null;
 $allSystemOk = true;
 $allPathsOk  = true;
 
-$version_support = '8.3';
+$version_support = '8.4';
 $systemCheck = [
     'PHP >= ' . $version_support    => version_compare(PHP_VERSION, $version_support, '>='),
     'Extensión GD'                  => (extension_loaded('gd') and function_exists('gd_info')),
     'MySQLi/PDO disponible'         => class_exists('mysqli') and class_exists('pdo'),
     'cURL habilitado'               => function_exists('curl_init'),
     'mbstring habilitado'           => extension_loaded('mbstring'),
-    'ZIP habilitado'                    => extension_loaded('zip'),
+    'ZIP habilitado'                => extension_loaded('zip'),
     '.htaccess presente'            => file_exists(ABSPATH . '/.htaccess'),
     '.env presente'                 => file_exists(ABSPATH . '/.env'),
 ];

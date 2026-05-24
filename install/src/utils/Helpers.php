@@ -19,7 +19,7 @@ use InvalidArgumentException;
  */
 final class Helpers
 {
-    public const VERSION = '4.0.0';
+    public const VERSION = '4.1.0';
     private const TYPE_NAME = 'name';
     private const TYPE_FULL = 'full';
     private const TYPE_CODE = 'code';

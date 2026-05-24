@@ -19,6 +19,8 @@ use App\Models\{Core,Email};
 use App\Contexts\EmailContext;
 
 define('TS_IMAGES', ABSPATH . '/assets/images/');
+define('TS_AVATARES', ABSPATH . '/assets/images/avatares');
+define('TS_AVATAR', ABSPATH . '/storage/avatar');
 define('UTILITIES', ABSPATH . '/app/utils/');
 
 // Seguridad básica: acceso solo por el instalador
@@ -147,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $EmailContext = new EmailContext(new Core());
          $tsEmail = new Email($EmailContext, $smpt);
          if (
-             $tsEmail->to($default['user_email'])
+            $tsEmail->to($default['user_email'])
              ->subject('welcome')
              ->template('sitio_creado')
              ->body($plantilla)
