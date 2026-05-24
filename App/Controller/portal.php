@@ -68,5 +68,5 @@ if ($tsContinue) {
 if (empty($tsAjax)) {
     $smarty->assign("tsTitle", $tsTitle);
 
-    include BASEPATH . "footer.php";
+    include BASEPATH . "/footer.php";
 }

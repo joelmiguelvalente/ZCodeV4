@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -64,7 +64,6 @@ if ($tsContinue) {
         $tsPosts->setNP();
     }
 
-
     if (!empty($_GET['post_id'])) {
         // DATOS DEL POST
         $tsPost = $tsPosts->getPost();
@@ -121,11 +120,13 @@ if ($tsContinue) {
         // CAT
         $smarty->assign("tsCat", $category);
         // TITULO
+        $catData = '';
         if (!empty($category)) {
             $catData = $tsHome->getCategory($category);
             $tsTitle = $tsCore->settings['titulo'] . ' - ' . $catData['c_nombre'];
             $smarty->assign("tsCatData", $catData);
         }
+
         if ((int)$tsCore->settings['c_allow_foro'] === 0 || !empty($category)) {
             // ULTIMOS POSTS
             $tsLastPosts = $tsHome->getLastPosts($category);
@@ -155,5 +156,5 @@ if ($tsContinue) {
 if (empty($tsAjax)) {
     $smarty->assign("tsTitle", $tsTitle);
 
-    include BASEPATH . "footer.php";
+    include BASEPATH . "/footer.php";
 }

@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 $tsPage = "saliendo";    // tsPage.tpl -> PLANTILLA PARA MOSTRAR CON ESTE ARCHIVO.
@@ -15,7 +15,7 @@ $tsAjax = empty($_GET['ajax']) ? 0 : 1; // LA RESPUESTA SERA AJAX?
 
 $tsContinue = true;    // CONTINUAR EL SCRIPT
 
-include "../../header.php"; // INCLUIR EL HEADER
+require_once dirname(__DIR__, 2) . "/header.php"; // INCLUIR EL HEADER
 
 $tsTitle = "Saliendo de {$tsCore->settings['titulo']}";     // TITULO DE LA PAGINA ACTUAL
 
@@ -41,5 +41,5 @@ if ($tsContinue) {
 if (empty($tsAjax)) {
     $smarty->assign("tsTitle", $tsTitle);    // AGREGAR EL TITULO DE LA PAGINA ACTUAL
 
-    include BASEPATH . "footer.php";
+    include BASEPATH . "/footer.php";
 }
