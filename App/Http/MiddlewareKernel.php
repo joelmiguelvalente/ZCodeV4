@@ -30,9 +30,9 @@ class MiddlewareKernel
     {
         $this->middlewares = [
             'sanitize' => SanitizeRequestMiddleware::class,
-           'blacklist' => BlacklistMiddleware::class,
-           'maintenance' => MaintenanceMiddleware::class,
-           'csrf' => CsrfMiddleware::class,
+            'blacklist' => BlacklistMiddleware::class,
+            'maintenance' => MaintenanceMiddleware::class,
+            'csrf' => CsrfMiddleware::class,
         ];
     }
 

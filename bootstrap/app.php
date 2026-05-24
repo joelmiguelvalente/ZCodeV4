@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 declare(strict_types=1);
@@ -20,7 +20,7 @@ use App\Services\{ContentService,LoggerService,ImageService};
 use App\Themes\Theme;
 use App\Utils\{Avatar,Images,PasswordHandler};
 
-require_once __DIR__ . '/../config/App.configuration.php';
+require_once dirname(__DIR__, 1) . '/config/App.configuration.php';
 require_once HELPERS . '/polyfills.php';
 
 # Será reemplazado por App\Database\DB

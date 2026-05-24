@@ -43,16 +43,16 @@ RewriteRule ^$ index.php?do=home [QSA,L]
 RewriteRule ^mi/$ index.php?do=portal [QSA,L]
 RewriteRule ^pagina([0-9]+)$ index.php?page=$1 [QSA,L]
 RewriteRule ^index.php$ index.php?do=home [QSA,L]
-RewriteRule ^cuenta/([A-Za-z0-9_-]+)$ app/controller/cuenta.php?accion=$1 [QSA,L]
-RewriteRule ^status.html$ app/controller/status.php [QSA,L]
+RewriteRule ^cuenta/([A-Za-z0-9_-]+)$ App/Controller/cuenta.php?accion=$1 [QSA,L]
+RewriteRule ^status.html$ App/Controller/status.php [QSA,L]
 
 # CALLBACK PARA REDES SOCIALES
-RewriteRule ^(github|discord|google|facebook|reddit)\.php$ app/callback/$1.php [QSA,L]
+RewriteRule ^(github|discord|google|facebook|reddit)\.php$ App/Callback/$1.php [QSA,L]
 RewriteRule ^(migrator|seed)/$ app/database/$1.php [QSA,L]
 
 #PERFIL
-RewriteRule ^perfil/([A-Za-z0-9_-]+)(/([0-9]+))?$ app/controller/perfil.php?user=$1&pid=$3 [QSA,L]
-RewriteRule ^@([A-Za-z0-9_-]+)(/([0-9]+))?$ app/controller/perfil.php?user=$1&pid=$3 [QSA,L]
+RewriteRule ^perfil/([A-Za-z0-9_-]+)(/([0-9]+))?$ App/Controller/perfil.php?user=$1&pid=$3 [QSA,L]
+RewriteRule ^@([A-Za-z0-9_-]+)(/([0-9]+))?$ App/Controller/perfil.php?user=$1&pid=$3 [QSA,L]
 
 # POSTS
 RewriteRule ^posts/$ index.php?do=posts [QSA,L]
@@ -60,49 +60,49 @@ RewriteRule ^posts/pagina([0-9]+)$ index.php?do=posts&page=$1 [QSA,L]
 RewriteRule ^posts/([A-Za-z0-9_-]+)/$ index.php?do=posts&cat=$1 [QSA,L]
 RewriteRule ^posts/([A-Za-z0-9_-]+)/pagina([0-9]+)$ index.php?do=posts&cat=$1&page=$2 [QSA,L]
 RewriteRule ^posts/([A-Za-z0-9_-]+)/([0-9]+)/(.*)\.html$ index.php?do=posts&cat=$1&post_id=$2&title=$3 [QSA,L]
-RewriteRule ^posts/editar/([0-9]+)$ app/controller/agregar.php?action=editar&pid=$1 [QSA,L]
+RewriteRule ^posts/editar/([0-9]+)$ App/Controller/agregar.php?action=editar&pid=$1 [QSA,L]
 
 # POSTS SHORTEN
 RewriteRule ^p/([0-9]+)$ index.php?do=posts&p=$1 [QSA,L]
 
 # RECUPERAR PASS Y VALIDAR CUENTA
-RewriteRule ^password/(.+)/([0-9]+)/(.+)/?$ app/controller/password.php?hash=$1&type=$2&email=$3
-RewriteRule ^validar/(.+)$ app/controller/validar.php?encode=$1 [QSA,L]
+RewriteRule ^password/(.+)/([0-9]+)/(.+)/?$ App/Controller/password.php?hash=$1&type=$2&email=$3
+RewriteRule ^validar/(.+)$ App/Controller/validar.php?encode=$1 [QSA,L]
 
 # FOTOS
-RewriteRule ^fotos/([A-Za-z0-9_-]+).php$ app/controller/fotos.php?action=$1 [QSA,L]
-RewriteRule ^fotos/([A-Za-z0-9_-]+)$ app/controller/fotos.php?action=album&user=$1 [QSA,L]
-RewriteRule ^fotos/([A-Za-z0-9_-]+)/([0-9]+)$ app/controller/fotos.php?action=album&user=$1&page=$2 [QSA,L]
-RewriteRule ^fotos/([A-Za-z0-9_-]+)/([0-9]+)/([A-Za-z0-9_-]+).html$ app/controller/fotos.php?action=ver&user=$1&fid=$2 [QSA,L]
+RewriteRule ^fotos/([A-Za-z0-9_-]+).php$ App/Controller/fotos.php?action=$1 [QSA,L]
+RewriteRule ^fotos/([A-Za-z0-9_-]+)$ App/Controller/fotos.php?action=album&user=$1 [QSA,L]
+RewriteRule ^fotos/([A-Za-z0-9_-]+)/([0-9]+)$ App/Controller/fotos.php?action=album&user=$1&page=$2 [QSA,L]
+RewriteRule ^fotos/([A-Za-z0-9_-]+)/([0-9]+)/([A-Za-z0-9_-]+).html$ App/Controller/fotos.php?action=ver&user=$1&fid=$2 [QSA,L]
 
 # MODERACION
-RewriteRule ^moderacion/buscador/([0-2]+)/([0-2]+)/(.+)$ app/controller/moderacion.php?action=buscador&act=search&m=$1&t=$2&texto=$3 [QSA,L]
+RewriteRule ^moderacion/buscador/([0-2]+)/([0-2]+)/(.+)$ App/Controller/moderacion.php?action=buscador&act=search&m=$1&t=$2&texto=$3 [QSA,L]
 
 #HISTORIAL DE MODERACION
-RewriteRule ^mod-history/([A-Za-z0-9_-]+)/?$ app/controller/mod-history.php?ver=$1 [QSA,L]
+RewriteRule ^mod-history/([A-Za-z0-9_-]+)/?$ App/Controller/mod-history.php?ver=$1 [QSA,L]
 
 # SITEMAP & RSS
-RewriteRule ^rss/([A-Za-z0-9_-]+)(/([A-Za-z0-9_-]+))?$ app/controller/rss.php?type=$1&user=$3 [QSA,L]
+RewriteRule ^rss/([A-Za-z0-9_-]+)(/([A-Za-z0-9_-]+))?$ App/Controller/rss.php?type=$1&user=$3 [QSA,L]
 
 # COMUNIDADES
-RewriteRule ^comunidades(/([A-Za-z0-9_-]+))?(/([0-9]+))?(/([A-Za-z0-9_-]+))?(/([A-Za-z0-9_-]+))?(/([0-9]+))?$ app/controller/comunidades.php?action=$2&act=$3&bid=$4&page=$5&c_seo=$6&s_seo=$7 [QSA,L]
+RewriteRule ^comunidades(/([A-Za-z0-9_-]+))?(/([0-9]+))?(/([A-Za-z0-9_-]+))?(/([A-Za-z0-9_-]+))?(/([0-9]+))?$ App/Controller/comunidades.php?action=$2&act=$3&bid=$4&page=$5&c_seo=$6&s_seo=$7 [QSA,L]
 
 # LOGIN & REGISTRO
-RewriteRule ^(login|registro)/?$ app/controller/access.php?action=$1 [QSA,L]
+RewriteRule ^(login|registro)/?$ App/Controller/access.php?action=$1 [QSA,L]
 
 # ADMINISTRACION & MODERACION
-RewriteRule ^(admin|moderacion)/?$ admin/controller/$1.php?template=$1 [L,QSA]
-RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/?$ admin/controller/$1.php?template=$1&action=$2 [L,QSA]
-RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ admin/controller/$1.php?template=$1&action=$2&act=$3 [L,QSA]
-RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([0-9]+)/?$ admin/controller/$1.php?template=$1&action=$2&act=$3&id=$4 [L,QSA]
+RewriteRule ^(admin|moderacion)/?$ admin/controller/$1.php?page=$1 [L,QSA]
+RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/?$ admin/controller/$1.php?page=$1&action=$2 [L,QSA]
+RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ admin/controller/$1.php?page=$1&action=$2&act=$3 [L,QSA]
+RewriteRule ^(admin|moderacion)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([0-9]+)/?$ admin/controller/$1.php?page=$1&action=$2&act=$3&id=$4 [L,QSA]
 
 # API
-RewriteRule ^([A-Za-z0-9_-]+).php$ app/api/index.php?action=$1 [QSA,L]
+RewriteRule ^([A-Za-z0-9_-]+).php$ App/Api/index.php?action=$1 [QSA,L]
 
 # EXTRAS
-RewriteRule ^([A-Za-z0-9_-]+)/$ app/controller/$1.php [QSA,L]
-RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/$ app/controller/$1.php?action=$2 [QSA,L]
-RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([0-9]+)$ app/controller/$1.php?action=$2&id=$3 [QSA,L]
+RewriteRule ^([A-Za-z0-9_-]+)/$ App/Controller/$1.php [QSA,L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/$ App/Controller/$1.php?action=$2 [QSA,L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([0-9]+)$ App/Controller/$1.php?action=$2&id=$3 [QSA,L]
 
 # NO PERMITIR
 <FilesMatch "^\.">

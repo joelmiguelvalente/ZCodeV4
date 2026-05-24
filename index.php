@@ -26,5 +26,8 @@ require_once __DIR__ . '/header.php';
 
 $doPage = filter_input(INPUT_GET, 'do', FILTER_UNSAFE_RAW) === 'portal';
 // Checamos...
-$controller = ((int)$tsCore->settings['c_allow_portal'] AND $tsUser->is_member AND $doPage) ? 'portal' : 'posts';
-require_once __DIR__ . "/app/controller/{$controller}.php";
+if((int)$tsCore->settings['c_allow_portal'] AND $tsUser->is_member AND $doPage) {
+	require_once __DIR__ . "/app/controller/portal.php";
+} else {
+	require_once __DIR__ . "/app/controller/posts.php";
+}

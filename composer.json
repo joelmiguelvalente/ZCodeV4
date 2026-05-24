@@ -42,6 +42,7 @@
    "prefer-stable": true,
    "require": {
       "cweagans/composer-patches": "^1.7",
+      "filp/whoops": "^2.18",
       "jbbcode/jbbcode": "^1.4",
       "phpmailer/phpmailer": "^7.0",
       "smarty/smarty": "^5.4",

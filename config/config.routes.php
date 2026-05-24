@@ -32,10 +32,11 @@ const PATHS = [
    'TS_IMAGES'       => BASEPATH . '/assets/images',
    'TS_PORTADAS'     => BASEPATH . '/storage/portadas',
    'TS_UPLOADS'      => BASEPATH . '/storage/uploads',
-   'TS_THEMES'       => BASEPATH . '/views/themes',
+   'TS_THEMES'       => BASEPATH . '/themes',
+   'TS_VIEWS'        => BASEPATH . '/views',
    'TS_AUTH'         => BASEPATH . '/views/auth',
    'TS_COMPONENTS'   => BASEPATH . '/views/components',
-   'TS_HTML'         => BASEPATH . '/views/html',
+   'TS_OUTPUT'       => BASEPATH . '/views/output',
 ];
 
 foreach (PATHS as $name => $path) {

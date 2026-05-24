@@ -10,16 +10,17 @@
 declare(strict_types=1);
 
 if (!defined('ZCODE_ULTIMATE')) {
-   exit('No direct script access allowed');
+	exit('No direct script access allowed');
 }
-define('BASEPATH', dirname(__DIR__, 1) . DIRECTORY_SEPARATOR);
+define('BASEPATH', dirname(__DIR__, 1));
 
 require_once __DIR__ . '/../vendor/autoload.php';
 if(file_exists(dirname(__DIR__, 1) . '/.env')) {
-   $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1) . '/', null, false, null);
-   $dotenv->load();
+	$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1) . '/', null, false, null);
+	$dotenv->load();
 }
 
+require_once __DIR__ . '/config.whoops.php';
 require_once __DIR__ . '/config.define.php';
 require_once __DIR__ . '/config.routes.php';
 
