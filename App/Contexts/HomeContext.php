@@ -3,7 +3,7 @@
 /**
  * @package     ZCode
  * @author      Miguel92
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 declare(strict_types=1);
