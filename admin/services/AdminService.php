@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -20,7 +20,7 @@ if (!defined('ZCODE_ULTIMATE')) {
 class AdminService
 {
     # Extensiones para imagenes
-    public array $extension = ["jpeg", "jpg", "png", "gif", "bmp", "svg", "webp"];
+    public array $extension = ["jpeg", "jpg", "png", "gif", "bmp", "svg", "webp", "avif"];
 
     /**
      * Función para obtenener a los administradores
@@ -36,7 +36,7 @@ class AdminService
     */
     public function getFoundation()
     {
-        return DB::fetch("SELECT `stats_time_foundation`, `stats_time_upgrade` FROM @stats WHERE stats_no = :id", ['id' => 1]);
+        return DB::fetch("SELECT stats_time_foundation, stats_time_upgrade FROM @stats WHERE stats_no = :id", ['id' => 1]);
     }
 
     # Las opciones para los rangos (saveRango() y newRango())
@@ -45,14 +45,14 @@ class AdminService
         return serialize([
             'suad'      => $post['superadmin'],
             'sumo'      => $post['supermod'],
-            'moacp'         => $post['mod-accesopanel'],
-            'mocdu'         => $post['mod-cancelardenunciasusuarios'],
-            'moadf'         => $post['mod-aceptardenunciasfotos'],
-            'mocdf'         => $post['mod-cancelardenunciasfotos'],
-            'mocdp'         => $post['mod-cancelardenunciasposts'],
-            'moadm'         => $post['mod-aceptardenunciasmensajes'],
-            'mocdm'         => $post['mod-cancelardenunciasmensajes'],
-            'movub'         => $post['mod-verusuariosbaneados'],
+            'moacp'     => $post['mod-accesopanel'],
+            'mocdu'     => $post['mod-cancelardenunciasusuarios'],
+            'moadf'     => $post['mod-aceptardenunciasfotos'],
+            'mocdf'     => $post['mod-cancelardenunciasfotos'],
+            'mocdp'     => $post['mod-cancelardenunciasposts'],
+            'moadm'     => $post['mod-aceptardenunciasmensajes'],
+            'mocdm'     => $post['mod-cancelardenunciasmensajes'],
+            'movub'     => $post['mod-verusuariosbaneados'],
             'moub'      => $post['mod-usarbuscador'],
             'morp'      => $post['mod-reciclajeposts'],
             'morf'      => $post['mod-reficlajefotos'],
@@ -70,28 +70,28 @@ class AdminService
             'mocepc'    => $post['mod-comentarpostcerrado'],
             'moedcopo'  => $post['mod-editarcomposts'],
             'moaydcp'   => $post['mod-desyaprobarcomposts'],
-            'moecp'         => $post['mod-eliminarcomposts'],
+            'moecp'     => $post['mod-eliminarcomposts'],
             'moef'      => $post['mod-eliminarfotos'],
             'moedfo'    => $post['mod-editarfotos'],
-            'moecf'         => $post['mod-eliminarcomfotos'],
-            'moepm'         => $post['mod-eliminarpubmuro'],
-            'moecm'         => $post['mod-eliminarcommuro'],
+            'moecf'     => $post['mod-eliminarcomfotos'],
+            'moepm'     => $post['mod-eliminarpubmuro'],
+            'moecm'     => $post['mod-eliminarcommuro'],
             'moat'      => $post['mod-administrartickets'],
             'moet'      => $post['mod-eliminartickets'],
             'godp'      => $post['global-darpuntos'],
             'gopp'      => $post['global-publicarposts'],
-            'gopcp'         => $post['global-publicarcomposts'],
-            'govpp'         => $post['global-votarposipost'],
-            'govpn'         => $post['global-votarnegapost'],
-            'goepc'         => $post['global-editarpropioscomentarios'],
-            'godpc'         => $post['global-eliminarpropioscomentarios'],
+            'gopcp'     => $post['global-publicarcomposts'],
+            'govpp'     => $post['global-votarposipost'],
+            'govpn'     => $post['global-votarnegapost'],
+            'goepc'     => $post['global-editarpropioscomentarios'],
+            'godpc'     => $post['global-eliminarpropioscomentarios'],
             'gopf'      => $post['global-publicarfotos'],
-            'gopcf'         => $post['global-publicarcomfotos'],
+            'gopcf'     => $post['global-publicarcomfotos'],
             'gorpap'    => $post['global-revisarposts'],
-            'govwm'         => $post['global-vermantenimiento'],
+            'govwm'     => $post['global-vermantenimiento'],
             'goaf'      => $post['global-antiflood'],
-            'gopfp'         => $post['global-pointsforposts'],
-            'gopfd'         => $post['global-pointsforday'],
+            'gopfp'     => $post['global-pointsforposts'],
+            'gopfd'     => $post['global-pointsforday'],
             'goda'      => $post['global-avatargif']
         ]);
     }

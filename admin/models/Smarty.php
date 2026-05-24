@@ -4,20 +4,24 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 declare(strict_types=1);
 
-namespace Admin\models;
+namespace Admin\Models;
 
 if (!defined('ZCODE_ULTIMATE')) {
     exit('No se permite el acceso directo al script');
 }
 
 use Smarty\Smarty as SmartyEngine;
-use App\extensiones\SmartyExtensiones;
+use App\Extensiones\SmartyExtensiones;
+//
 use Exception;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use FilesystemIterator;
 
 class Smarty extends SmartyEngine
 {
@@ -40,7 +44,7 @@ class Smarty extends SmartyEngine
     public function setTheme(string $theme): void
     {
         $this->theme = $theme;
-        $this->setCompileDir(TS_CACHE . $theme);
+        $this->cache(TS_CACHE . '/' . $theme);
     }
 
     public function setPage(string $page): void
@@ -51,7 +55,7 @@ class Smarty extends SmartyEngine
     public function cache()
     {
         $this->setCompileCheck(true);
-        $this->setCompileDir(TS_CACHE . '/admin-' . date('dmy'));
+        $this->setCompileDir(TS_CACHE . '/' . $this->theme . date('dmy'));
     }
 
     /**
@@ -83,52 +87,74 @@ class Smarty extends SmartyEngine
         }
     }
 
-    /**
-     * Resuelve la plantilla según la página.
-     */
-    private function resolvePage(string $page): string
-    {
+    private function resolvePage(string $page, bool $useExtension): string {
         $file = match ($page) {
-            'main' => 'main.tpl',
-            'saliendo' => 'views/html/saliendo.html',
-            default => "t.$page.tpl"
+            'registro', 'login'   => 'base.tpl',
+            'main'                => 'main.tpl',
+            'suspension'          => 'views/output/suspension.tpl',
+            'mantenimiento'       => 'views/output/mantenimiento.tpl',
+            'saliendo'            => 'themes/html/saliendo.html',
+            default => ($useExtension ? "t.$page.tpl" : "$page.tpl")
         };
         return $this->templateExists($file) ? $file : $this->templateError;
+    }
+
+    private function recursiveDirectories(string $path): array {
+        $iterator = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
+        $iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+        $iterators = [];
+        foreach ($iterator as $item) {
+           if ($item->isDir()) {
+              $iterators[$item->getFilename()] = $item->getPathname();
+           }
+        }
+        return $iterators;
     }
 
     /**
      * Mapea rutas del sistema y módulos.
      */
-    private function mapDirectories(): array
-    {
+    private function mapDirectories(): array {
         $directories = [
             'root'       => BASEPATH,
-            'assets'     => TS_ASSETS,
-            'components' => BASEPATH . 'views/components/',
-            'html'       => BASEPATH . 'views/html/',
-            'api'        => BASEPATH . 'views/api/',
-            'dashboard'  => TS_ADMIN . '/templates/',
-            'admin'          => TS_ADMIN . '/templates/admin/',
-            'mod'        => TS_ADMIN . '/templates/moderacion/',
-            'cache'      => TS_CACHE
+            'auth'       => TS_AUTH,
+            'api'        => TS_VIEWS . '/api',
+            'error'      => TS_VIEWS . '/error',
+            'output'     => TS_OUTPUT,
+            'dashboard'  => TS_ADMIN . '/templates',
+            'admin'      => TS_ADMIN . '/templates/admin',
+            'moderacion' => TS_ADMIN . '/templates/moderacion',
         ];
-        foreach (scandir($directories['components']) as $component) {
-            if ($component === '.' || $component === '..') {
-                continue;
-            }
-            $directories[$component] = $directories['components'] . $component . '/';
-        }
         return $directories;
+    }
+
+    /**
+     * Carga todos los directorios utilizados por el tema.
+     */
+    private function loadAllTemplates(): void {
+        $theme = isset($_SESSION['theme_path']) ? $_SESSION['theme_path'] : $this->theme;
+        $templates = TS_THEMES . "/{$theme}/templates";
+        $map = array_merge(
+            [
+                'tema'        => TS_THEMES . "/{$theme}",
+                'templates'   => $templates
+            ],
+            $this->recursiveDirectories($templates),
+            $this->recursiveDirectories(TS_COMPONENTS),
+            $this->mapDirectories()
+        );
+        $this->addTemplateDir($map);
     }
 
     /**
      * Renderiza una plantilla.
      */
-    public function load(string $page = ''): void
+    public function load(string $page = '', bool $useExtension = true): void
     {
-        $this->addTemplateDir($this->mapDirectories());
+        $this->loadAllTemplates();
+
         try {
-            $template = $this->resolvePage($page);
+            $template = $this->resolvePage($page, $useExtension);
             $this->display($template);
         } catch (Exception $e) {
             $mensaje = preg_replace_callback(
@@ -136,14 +162,14 @@ class Smarty extends SmartyEngine
                 fn ($message) => "'<strong>{$message[1]}</strong>'",
                 $e->getMessage()
             );
-
+            $template = $useExtension ? "t.$page.tpl" : "$page.tpl";
             $show = "
-				Lo sentimos, se produjo un error al cargar la plantilla <strong>t.$page.tpl</strong>.
-				<br>Debido al error:<br>
-				<code style=\"font-size:1rem;line-height: 1.3rem;color: #d971ad;
-				word-wrap: break-word;background: rgba(217, 113, 173, .12);
-				display:block;padding:.5em;\">$mensaje</code>
-			";
+                Lo sentimos, se produjo un error al cargar la plantilla <strong>$template</strong>.
+                <br>Debido al error:<br>
+                <code style=\"font-size:1rem;line-height: 1.3rem;color: #d971ad;
+                word-wrap: break-word;background: rgba(217, 113, 173, .12);
+                display:block;padding:.5em;\">$mensaje</code>
+            ";
 
             ShowError($show, 'plantilla');
         }

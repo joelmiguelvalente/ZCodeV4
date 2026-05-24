@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -51,9 +51,9 @@ $Container->set(AdminService::class, AdminService::class);
 
 if ($tsContinue) {
     // ACTION
-    $action = htmlspecialchars($_GET['action'] ?? '');
+    $action = trim($_GET['action'] ?? '');
     // ACTION 2
-    $act = htmlspecialchars($_GET['act'] ?? '');
+    $act = trim($_GET['act'] ?? '');
 
     // CLASE POSTS
     $tsAdmin = $Container->get(Admin::class);
@@ -177,7 +177,6 @@ if ($tsContinue) {
 
     // Seo
     } elseif ($action === 'seo') {
-        // CLASE MEDAL
         $tsTitle = 'Configurar SEO';
         $Container->set(Seo::class, Seo::class);
         $Seo = $Container->get(Seo::class);
@@ -300,7 +299,8 @@ if ($tsContinue) {
     } elseif ($action === 'medals') {
         $tsTitle = 'Todas las medallas';
         // CLASE MEDAL
-        require_once TS_MODELS . "c.medals.php";
+        $Container->set(Medal::class, Medal::class);
+        $tsMedal = $Container->get(Medal::class);
         //
         if (empty($act)) {
             $smarty->assign("tsMedals", $tsMedal->adGetMedals());
@@ -343,7 +343,8 @@ if ($tsContinue) {
      // Afiliados
     } elseif ($action === 'afs') {
       // CLASS
-        require_once TS_MODELS . "c.afiliado.php";
+        $Container->set(Afiliado::class, Afiliado::class);
+        $tsAfiliado = $Container->get(Afiliado::class);
       // QUE HACER
         if (empty($act)) {
             $smarty->assign("tsAfiliados", $tsAfiliado->getAfiliados('admin'));

@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -21,15 +21,11 @@ if (! defined('ZCODE_ULTIMATE')) {
 
 class Admin
 {
-    protected Core $Core;
 
-    protected AdminService $AdminService;
-
-    public function __construct(Core $Core, AdminService $AdminService)
-    {
-        $this->Core = $Core;
-        $this->AdminService = $AdminService;
-    }
+    public function __construct(
+        protected Core $Core,
+        protected AdminService $AdminService
+    ) {}
 
     public function redirect()
     {
