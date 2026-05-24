@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -61,38 +61,38 @@ class Core
         $storage   = "$baseUrl/storage";
 
         $routes = [
-          'url'       => $baseUrl,
-          'domain'    => $this->url(false),
-          'canonical' => $this->currentUrl(true),
+            'url'       => $baseUrl,
+            'domain'    => $this->url(false),
+            'canonical' => $this->currentUrl(true),
 
-          'tema' => [
-             'base'   => "$baseUrl/views/themes/$theme",
-             'css'    => "$baseUrl/views/themes/$theme/css",
-             'js'     => "$baseUrl/views/themes/$theme/js",
-             'images' => "$baseUrl/views/themes/$theme/images"
-          ],
-          'assets' => [
-             'base'   => $assets,
-             'css'    => "$assets/css",
-             'js'     => "$assets/js",
-             'images' => $images,
-             'fonts'  => "$assets/fonts",
-             'favicon' => "$images/favicon",
-             'categorias' => "$images/categorias",
-          ],
-          'storage' => [
-             'base'      => $storage,
-             'avatar'    => "$storage/avatar",
-             'portadas'  => "$storage/portadas",
-             'uploads'   => "$storage/uploads",
-          ],
+            'tema' => [
+                'base'   => "$baseUrl/themes/$theme",
+                'css'    => "$baseUrl/themes/$theme/css",
+                'js'     => "$baseUrl/themes/$theme/js",
+                'images' => "$baseUrl/themes/$theme/images"
+            ],
+            'assets' => [
+                'base'   => $assets,
+                'css'    => "$assets/css",
+                'js'     => "$assets/js",
+                'images' => $images,
+                'fonts'  => "$assets/fonts",
+                'favicon' => "$images/favicon",
+                'categorias' => "$images/categorias",
+            ],
+            'storage' => [
+               'base'      => $storage,
+               'avatar'    => "$storage/avatar",
+               'portadas'  => "$storage/portadas",
+               'uploads'   => "$storage/uploads",
+            ],
 
             'logos' => [
-                '32' => "$images/favicon/logo-32.webp",
-                '64' => "$images/favicon/logo-64.webp",
-                '128' => "$images/favicon/logo-128.webp",
-                '256' => "$images/favicon/logo-256.webp",
-                'big' => "$images/favicon/{$this->setSEO($this->settings['titulo'])}.webp"
+                'x32' => "$images/favicon/logo-32.webp",
+                'x64' => "$images/favicon/logo-64.webp",
+                'x128' => "$images/favicon/logo-128.webp",
+                'x256' => "$images/favicon/logo-256.webp",
+                'xbig' => "$images/favicon/{$this->setSEO($this->settings['titulo'])}.webp"
             ]
         ];
         return $routes;

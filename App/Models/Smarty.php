@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 declare(strict_types=1);
@@ -17,7 +17,11 @@ if (!defined('ZCODE_ULTIMATE')) {
 
 use Smarty\Smarty as SmartyEngine;
 use App\Extensiones\SmartyExtensiones;
+//
 use Exception;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use FilesystemIterator;
 
 class Smarty extends SmartyEngine
 {
@@ -83,69 +87,73 @@ class Smarty extends SmartyEngine
         }
     }
 
-    /**
-     * Resuelve la plantilla según la página.
-     */
-    private function resolvePage(string $page): string
-    {
+    private function resolvePage(string $page, bool $useExtension): string {
         $file = match ($page) {
+            'registro', 'login'   => 'base.tpl',
             'admin', 'moderacion' => 'main.tpl',
-            'saliendo' => 'views/html/saliendo.html',
-            default => "t.$page.tpl"
+            'suspension'          => 'views/output/suspension.tpl',
+            'mantenimiento'       => 'views/output/mantenimiento.tpl',
+            'saliendo'            => 'themes/html/saliendo.html',
+            default => ($useExtension ? "t.$page.tpl" : "$page.tpl")
         };
         return $this->templateExists($file) ? $file : $this->templateError;
+    }
+
+    private function recursiveDirectories(string $path): array {
+        $iterator = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
+        $iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+        $iterators = [];
+        foreach ($iterator as $item) {
+           if ($item->isDir()) {
+              $iterators[$item->getFilename()] = $item->getPathname();
+           }
+        }
+        return $iterators;
     }
 
     /**
      * Mapea rutas del sistema y módulos.
      */
-    private function mapDirectories(): array
-    {
+    private function mapDirectories(): array {
         $directories = [
             'root'       => BASEPATH,
-            'assets'     => TS_ASSETS,
-            'components' => TS_COMPONENTS . '/',
-            'html'       => TS_HTML . '/',
+            'auth'       => TS_AUTH,
+            'api'        => TS_VIEWS . '/api',
+            'error'      => TS_VIEWS . '/error',
+            'output'     => TS_OUTPUT . '/',
             'dashboard'  => TS_ADMIN,
-            'admin_mods' => TS_ADMIN . '/admin_mods/',
-            'access'     => TS_AUTH
+            'admin_mods' => TS_ADMIN . '/admin_mods',
         ];
-        foreach (scandir($directories['components']) as $component) {
-            if ($component === '.' || $component === '..') {
-                continue;
-            }
-            $directories[$component] = $directories['components'] . $component . '/';
-        }
         return $directories;
     }
 
     /**
      * Carga todos los directorios utilizados por el tema.
      */
-    private function loadAllTemplates(): void
-    {
-        $templates = TS_THEMES . "//{$this->theme}/templates";
-        $map = array_merge([
-            'tema'        => TS_THEMES . '/' . $this->theme,
-            'templates'   => $templates,
-            'sections'    => "$templates/sections/",
-            'modules'     => "$templates/modules/",
-            'pagina'      => "$templates/modules/{$this->page}/",
-            'global'      => "$templates/modules/global/",
-            'php_files'   => "$templates/t.php_files/"
-        ], $this->mapDirectories());
-
+    private function loadAllTemplates(): void {
+        $theme = isset($_SESSION['theme_path']) ? $_SESSION['theme_path'] : $this->theme;
+        $templates = TS_THEMES . "/{$theme}/templates";
+        $map = array_merge(
+            [
+                'tema'        => TS_THEMES . "/{$theme}",
+                'templates'   => $templates
+            ],
+            $this->recursiveDirectories($templates),
+            $this->recursiveDirectories(TS_COMPONENTS),
+            $this->mapDirectories()
+         );
         $this->addTemplateDir($map);
     }
 
     /**
      * Renderiza una plantilla.
      */
-    public function load(string $page = ''): void
+    public function load(string $page = '', bool $useExtension = true): void
     {
         $this->loadAllTemplates();
+
         try {
-            $template = $this->resolvePage($page);
+            $template = $this->resolvePage($page, $useExtension);
             $this->display($template);
         } catch (Exception $e) {
             $mensaje = preg_replace_callback(
@@ -155,12 +163,12 @@ class Smarty extends SmartyEngine
             );
 
             $show = "
-				Lo sentimos, se produjo un error al cargar la plantilla <strong>t.$page.tpl</strong>.
-				<br>Debido al error:<br>
-				<code style=\"font-size:1rem;line-height: 1.3rem;color: #d971ad;
-				word-wrap: break-word;background: rgba(217, 113, 173, .12);
-				display:block;padding:.5em;\">$mensaje</code>
-			";
+                Lo sentimos, se produjo un error al cargar la plantilla <strong>t.$page.tpl</strong>.
+                <br>Debido al error:<br>
+                <code style=\"font-size:1rem;line-height: 1.3rem;color: #d971ad;
+                word-wrap: break-word;background: rgba(217, 113, 173, .12);
+                display:block;padding:.5em;\">$mensaje</code>
+            ";
 
             ShowError($show, 'plantilla');
         }

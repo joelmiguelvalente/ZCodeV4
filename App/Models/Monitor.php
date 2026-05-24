@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 declare(strict_types=1);
@@ -493,7 +493,7 @@ class Monitor
         $oracion['style'] = $this->monitor[$no_type]['css'];
         $oracion['date'] = $data['not_date'];
         $oracion['user'] = $data['usuario'];
-        $oracion['avatar'] = !empty($data['obj_user']) ? $tsZCode->getAvatar($data['obj_user'], 'use') : $tsCore->settings['logos'][64];
+        $oracion['avatar'] = !empty($data['obj_user']) ? $tsZCode->getAvatar($data['obj_user'], 'use') : $tsCore->settings['logos']['x64'];
         $oracion['total'] = (int)$data['not_total'];
         # CON UN SWITCH ESCOGEMOS QUE ORACION CONSTRUIR
         switch ($no_type) {
