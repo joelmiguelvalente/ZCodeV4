@@ -4,7 +4,7 @@
  * @package     ZCode
  * @author      Miguel92
  * @copyright   2024 - 2026
- * @version     4.0.0
+ * @version     4.1.0
 */
 
 if (! defined('ZCODE_ULTIMATE')) {
@@ -72,5 +72,5 @@ switch ($action) {
 
 if (in_array($action, ['feed-support', 'feed-version'])) {
     $json = $tsCore->getUrlContent("$endpoint?$params");
-    echo $json;
+    echo json_encode($json);
 }
