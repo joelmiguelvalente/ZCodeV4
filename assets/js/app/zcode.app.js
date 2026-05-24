@@ -854,7 +854,7 @@ $.getJSON = (url, params = {}, callback = null) => {
 	const queryString = new URLSearchParams(params).toString();
 	const finalUrl = queryString ? (url.includes('?') ? `${url}&${queryString}` : `${url}?${queryString}`) : url;
 
-	const request = $.request(finalUrl, {
+	const request = $.request(`${ZCodeApp.url}/${finalUrl}`, {
 		method: 'GET',
 		responseType: 'json'
 	});

@@ -5,7 +5,7 @@ const joypixels = window.joypixels;
 
 // FEED SUPPORT
 $(() => {
-	$.getJSON("/feed-support.php", response => {
+	/*$.getJSON("feed-support.php", response => {
 		$('#ulitmas_noticias').html('<div class="empty">Obteniendo información...</div>');
 		if(Array.isArray(response)) {
 			$('#ulitmas_noticias').html('');
@@ -24,7 +24,7 @@ $(() => {
 	});
 
 	//
-	$.getJSON("/feed-version.php", response => {
+	$.getJSON("feed-version.php", response => {
 		const { version, status, color } = response;
 		// Clonamos
 	  	let clonar = $('.list-clone').first().clone();
@@ -40,15 +40,16 @@ $(() => {
 	  		clonar.find('.text-body-secondary').text(response);
 		}
 	  	$('#ultima_version').append(clonar);
-	});
+	});*/
 
-	function changeBranch(branch = 'v3-dev') {
-		$.getJSON('/github-api.php', { branch }, response => {
-			if(response === null || response.state === 0) {
+	function changeBranch(branch = 'dev') {
+		$.getJSON('github-api.php', { branch }, response => {
+			const result = typeof response === 'string' ? JSON.parse(response) : response;
+			if(!result || result.state === 0) {
 				$('#lastCommit').html('<div class="empty">No se puede cargar el último commit...</div>');
 				return;
 			}
-			const { sha,  html_url, message, author, date, verified, reason } = response.data;
+			const { sha, html_url, message, author, date, verified, reason } = result.data;
 			//
 			$('#lastCommit').html('');
 			// Creamos la plantilla para mostrar la infomación del mismo
